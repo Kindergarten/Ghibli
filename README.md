@@ -7,10 +7,10 @@ Please do not change anything unless you've discussed it with [Adam](https://git
 
 ## How to run it:
 
-    - Clone repository
-    - Navigate to the folder using terminal
-        - Run `npm install`
-        - Run `bower install`
-        - Run `grunt build`
+  - Clone repository
+  - Navigate to the folder using terminal
+    - Run `npm install`
+    - Run `bower install`
+    - Run `grunt build`
 
 It will be simplified later.
