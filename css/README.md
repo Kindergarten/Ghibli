@@ -20,6 +20,6 @@ To summarise this a little more tersely:
  - We have **base** rules that style all particular types of DOM element.
  - We have **objects** which provide structural styling to any parts of the DOM that we decide might require it.
  - We have **components** which give very specific styles to a specific set of DOM elelments.
- - We have trumps that provide incredibly specific styles to single parts of the DOM.
+ - We have **trumps** that provide incredibly specific styles to single parts of the DOM.
 
 We can take elements as far as we want through any of these layers. For example, a label might just end at the base layer, with no need for objects, components, or even error states. The beauty of the Inverted Triangle is that it allows us to extend these layers only if and when we ever need to.
