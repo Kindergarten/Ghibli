@@ -1,0 +1,9 @@
+{
+  "name": "Ghibli",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "matchdep": "~0.3.0"
+  }
+}

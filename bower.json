@@ -1,0 +1,9 @@
+{
+  "name": "Ghibli",
+  "version": "0.0.1",
+  "main": "css/style.css",
+  "dependencies": {
+    "modernizr": "~2.7.2",
+    "angular": "~1.2.16"
+  }
+}
