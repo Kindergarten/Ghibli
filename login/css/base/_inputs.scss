@@ -1,0 +1,19 @@
+/*------------------------------------*\
+    #INPUTS
+\*------------------------------------*/
+
+input,
+textarea {
+    padding: $brand--controls-padding;
+    color: $brand--input-text-color;
+    background-color: $brand--input-color--default;
+    border: none;
+
+    &:hover {
+        background-color: $brand--input-color--hover;
+    }
+
+    &:focus {
+        background-color: $brand--input-color--active;
+    }
+}

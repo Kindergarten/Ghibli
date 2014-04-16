@@ -36,6 +36,10 @@
 /*------------------------------------*\
     #BRAND
 \*------------------------------------*/
+/** Controls*/
+/** Buttons */
+/** Inputs */
+/** Logo */
 /*------------------------------------*\
     #COLOR
 \*------------------------------------*/
@@ -43,9 +47,6 @@
 /*------------------------------------*\
     #TYPE
 \*------------------------------------*/
-html {
-  font-family: "Open Sans", sans-serif; }
-
 /*------------------------------------*\
     #FUNCTIONS
 \*------------------------------------*/
@@ -512,6 +513,65 @@ a:visited {
   color: #899eae; }
 
 /*------------------------------------*\
+    #BUTTONS
+\*------------------------------------*/
+.button {
+  position: relative;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 2em;
+  padding-right: 2em;
+  color: #fff;
+  font-weight: 300;
+  border-style: solid;
+  border-width: 0 0 0.4em;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px; }
+
+.button:active {
+  top: 0.2em;
+  border-bottom-width: 0.2em;
+  outline: none; }
+
+.button--large {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  padding-top: 1.1em;
+  padding-bottom: 1.1em;
+  padding-left: 2.2em;
+  padding-right: 2.2em; }
+
+.button--small {
+  font-size: 0.9em;
+  font-width: 400;
+  padding: 0.90909em; }
+
+/* Button Styles */
+.button {
+  background-color: #505355;
+  border-color: #37393b; }
+
+.button--primary {
+  background-color: #4a8b35;
+  border-color: #376627; }
+
+/*------------------------------------*\
+    #INPUTS
+\*------------------------------------*/
+input, textarea {
+  padding: 1em;
+  color: #afc8e6;
+  background-color: #19314d;
+  border: none; }
+  input:hover, textarea:hover {
+    background-color: #1c3655; }
+  input:focus, textarea:focus {
+    background-color: #1f3e60; }
+
+/*------------------------------------*\
     #OBJECTS
 \*------------------------------------*/
 /**
@@ -742,8 +802,8 @@ a:visited {
     #LOGO
 \*------------------------------------*/
 .logo {
-  width: 400px;
-  height: 70px;
+  padding-top: 18%;
+  /** Using percentage to keep ratio. */
   display: block;
   background-repeat: no-repeat;
   background-position: center center; }

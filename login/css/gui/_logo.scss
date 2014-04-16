@@ -3,8 +3,7 @@
 \*------------------------------------*/
 
 .logo {
-    width: 400px;
-    height: 70px;
+    padding-top: 18%; /** Using percentage to keep ratio. */
     display: block;
     background-repeat: no-repeat;
     background-position: center center;
