@@ -9,8 +9,9 @@ Please do not change anything unless you've discussed it with [Adam](https://git
 
   - Clone repository
   - Navigate to the folder using terminal
-    - Run `npm install`
-    - Run `bower install`
-    - Run `grunt watch`
+    - Run `npm install` (only once)
+    - Run `bower install` (only once)
+    - Run `grunt build` (only once)
+    - Run `grunt watch` (every time you work on the project)
 
 It will be simplified later.

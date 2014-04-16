@@ -15,6 +15,21 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
 
+        concat: {
+            js: {
+                src: [
+                    "./bower_components/angular/angular.js"
+                ],
+                dest: "./login/js/bundle.js"
+            },
+            modernizr: {
+                src: [
+                    "./bower_components/modernizr/modernizr.js"
+                ],
+                dest: "./login/js/modernizr.js"
+            }
+        },
+
 
         /**
          * `cssmin` - grunt-contrib-cssmin
@@ -76,5 +91,5 @@ module.exports = function (grunt) {
      * concat etc.
      */
 
-    grunt.registerTask("build", ["sass", "cssmin"]);
+    grunt.registerTask("build", ["sass", "cssmin", "concat:js", "concat:modernizr"]);
 };
