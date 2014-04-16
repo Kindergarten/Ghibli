@@ -6,11 +6,28 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link href="css/nasty.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
     <script src="js/modernizr.js"></script>
 </head>
 <body>
+    <a href="/" class="logo"></a>
 
+    <input type="text" class="one-whole" placeholder="Username..." />
+    <input type="password" class="one-whole" placeholder="Password..." />
+    <button class="one-whole button button--primary">Log in</button>
+    <label>
+        <input type="checkbox" />
+        Keep me logged in
+    </label>
+
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ["Open+Sans:400,300,600:latin"]
+            }
+        });
+    </script>
     <script src="js/bundle.js"></script>
 </body>
 </html>

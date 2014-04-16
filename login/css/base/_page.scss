@@ -11,14 +11,12 @@
  *    height in a unitless value.
  */
 html {
+    font-family: "Open Sans", sans-serif;
     font-size: ($base--font-size / 16px) +em; /* [1] */
     line-height: $base--line-height / $base--font-size; /* [1] */
     color: $base--text-color;
+}
 
-    @if $show-baseline-grid == true {
-
-        $baseline-size: strip-units($base--spacing-unit);
-
-        background-image: url(http://basehold.it/i/#{$baseline-size});
-    }
+body {
+    background: $brand--color--1;
 }

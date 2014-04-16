@@ -1,0 +1,23 @@
+/*------------------------------------*\
+    #LOGO
+\*------------------------------------*/
+
+.logo {
+    width: 400px;
+    height: 70px;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.svg .logo {
+    background-image: url($brand--logo-svg--base64);
+}
+
+.lt-ie9 .logo {
+    background-image: url($brand--logo-png--base64);
+}
+
+.lt-ie8 .logo {
+    background-image: url($brand--logo-png);
+}
