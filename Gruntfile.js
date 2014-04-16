@@ -1,19 +1,80 @@
 module.exports = function (grunt) {
-    var matchdep = require("matchdep");
+    var matchdep;
 
-    /** matchdep module goes through all tasks and initialises them so you don't have to use `grunt.loadNpmTasks` */
+
+    /**
+     * `matchdep` - matchdep
+     *
+     * This module goes through all tasks and initialises them so you don't have to use `grunt.loadNpmTasks`
+     */
+
     matchdep = require("matchdep");
 
     matchdep.filterDev("grunt-*").forEach(grunt.loadNpmTasks);
 
+
     grunt.initConfig({
+
+
+        /**
+         * `cssmin` - grunt-contrib-cssmin
+         *
+         * This module takes the compiled SASS file (style.css) and creates new file with minified content (nasty.css).
+         */
+
         cssmin: {
             dist: {
                 src: "./login/css/style.css",
                 dest: "./login/css/nasty.css"
             }
+        },
+
+
+        /**
+         * `sass` - "grunt-sass"
+         *
+         * Compiles style.css into style.scss.
+         */
+
+        sass: {
+            dist: {
+                files: {
+                    "./login/css/style.css": "./login/css/style.scss"
+                }
+            }
+        },
+
+
+        /**
+         * `watch` - "grunt-contrib-watch"
+         *
+         * This module triggers various tasks when certain files are being edited.
+         */
+
+        watch: {
+            dist: {
+                files: ["./login/css/**/*.scss"],
+                tasks: ["build_dev"]
+            }
         }
     });
 
-    grunt.registerTask("build", ["cssmin"]);
+
+    /**
+     * `build_dev`
+     *
+     * The purpose of this task is to compile all files but keeping them readable (not minified).
+     */
+
+    grunt.registerTask("build_dev", ["sass"]);
+
+
+    /**
+     * `build`
+     *
+     * This task is used to build all files for the production. This includes minification, SCSS compilation, JS
+     * concat etc.
+     */
+
+    grunt.registerTask("build", ["sass", "cssmin"]);
 };

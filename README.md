@@ -11,6 +11,6 @@ Please do not change anything unless you've discussed it with [Adam](https://git
   - Navigate to the folder using terminal
     - Run `npm install`
     - Run `bower install`
-    - Run `grunt build`
+    - Run `grunt watch`
 
 It will be simplified later.
