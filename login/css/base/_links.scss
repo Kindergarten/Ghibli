@@ -6,10 +6,10 @@ a {
     font-weight: 600;
 }
 
-a:hover {
-    color: $base--link-color--hover;
-}
-
 a:visited {
     color: $base--link-color--visited;
+}
+
+a:hover {
+    color: $base--link-color--hover;
 }

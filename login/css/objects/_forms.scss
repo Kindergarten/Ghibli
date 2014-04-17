@@ -1,0 +1,19 @@
+/*------------------------------------*\
+    #FORMS
+\*------------------------------------*/
+
+.form {
+
+}
+
+.form__row {
+    padding: $brand--controls-spacing 0;
+
+    &:first-child {
+
+    }
+
+    & + .form__row {
+        padding-top: 0;
+    }
+}

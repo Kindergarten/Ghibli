@@ -1,25 +1,30 @@
 /*------------------------------------*\
     #BRAND
 \*------------------------------------*/
-$brand--color--1:               #0a203a;
+$brand--color--1:   #0a203a;
 
-$brand--round:                  2px;
+$brand--round:      2px;
+
+$brand--warning:    #a1a03d;
+$brand--error:      #a13d3d;
+$brand--success:    #62a13d;
+
+$brand--msg-text-color:     #fff;
 
 /** Controls*/
-$brand--controls-padding:       1em;
+$brand--controls-spacing:       1em;
 
 
 /** Buttons */
 $brand--button-text-color--1:   #fff;
-
 $brand--button-default-color:   #505355;
-
 $brand--button-primary-color:   #4a8b35;
+$brand--button-secondary-color: #246bcb;
 
 
 /** Inputs */
 $brand--input-text-color:               #afc8e6;
-$brand--input-text-color--placeholder:  darken($brand--input-text-color, 20%);
+$brand--input-text-color--placeholder:  #304d6e;
 $brand--input-color--default:           #19314d;
 $brand--input-color--active:            lighten($brand--input-color--default, 5%);
 $brand--input-color--hover:             lighten($brand--input-color--default, 2%);

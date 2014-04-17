@@ -3,7 +3,8 @@
 \*------------------------------------*/
 
 .logo {
-    padding-top: 18%; /** Using percentage to keep ratio. */
+    margin: double($brand--controls-spacing) 0;
+    padding-top: 3.5em;
     display: block;
     background-repeat: no-repeat;
     background-position: center center;
@@ -19,4 +20,10 @@
 
 .lt-ie8 .logo {
     background-image: url($brand--logo-png);
+}
+
+@media all and (min-width: $base--breakpoint--small) {
+    .logo {
+        padding-top: 18%; /** Using percentage to keep ratio. */
+    }
 }

@@ -4,7 +4,7 @@
 
 input,
 textarea {
-    padding: $brand--controls-padding;
+    padding: $brand--controls-spacing;
     color: $brand--input-text-color;
     background-color: $brand--input-color--default;
     border: none;
@@ -16,4 +16,22 @@ textarea {
     &:focus {
         background-color: $brand--input-color--active;
     }
+
+    @include vendor(transition, all .1s);
+}
+
+::-webkit-input-placeholder {
+    color: $brand--input-text-color--placeholder;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: $brand--input-text-color--placeholder;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: $brand--input-text-color--placeholder;
+}
+
+:-ms-input-placeholder {
+    color: $brand--input-text-color--placeholder;
 }

@@ -1,0 +1,54 @@
+/*------------------------------------*\
+    #INPUTS
+\*------------------------------------*/
+
+/* Additions to inputs styling. */
+
+.input-helper {
+    @extend .cf;
+    position: relative;
+
+    * { float: left; }
+
+    /* TODO: Find a better way to position an icon. */
+    .icon {
+        position: absolute;
+        z-index: 3;
+        top: .6em;
+        left: .6em;
+        color: $brand--input-text-color--placeholder;
+        font-size: 1.5em;
+        @include vendor(transition, all .2s);
+    }
+
+    input {
+        position: relative;
+        z-index: 2;
+        padding-left: 3em;
+    }
+
+    input.valid + .icon,
+    input:focus + .icon { color: $brand--input-text-color; }
+
+}
+
+.input-helper__message {
+    position: absolute;
+    z-index: 1;
+    padding: $brand--controls-spacing / 3;
+    display: block;
+    width: 100%;
+    color: $brand--msg-text-color;
+    font-size: 80%;
+    background: $brand--button-default-color;
+}
+
+.input-helper__message--success {
+    background: $brand--success;
+}
+.input-helper__message--error {
+    background: $brand--error;
+}
+.input-helper__message--warning {
+    background: $brand--warning;
+}

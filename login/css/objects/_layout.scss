@@ -139,3 +139,95 @@
     }
 
 }
+
+
+.app-ctrl {
+    margin: 0 auto;
+    max-width: 40em;
+    padding: $brand--controls-spacing;
+}
+
+@media all and (min-width: $base--breakpoint--small) {
+    .app-ctrl {
+        max-width: 30em;
+    }
+}
+
+@media all and (min-width: $base--breakpoint--medium) {
+    .app-ctrl {
+        max-width: 32em;
+    }
+}
+
+@media all and (min-width: $base--breakpoint--large) {
+    .app-ctrl {
+        max-width: 34em;
+    }
+}
+
+
+.app-footer {
+    padding: $brand--controls-spacing;
+    text-align: center;
+}
+
+
+@media all and (min-width: $base--breakpoint--small) {
+    .app-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding-bottom: 0;
+    }
+}
+
+@media all and (min-width: $base--breakpoint--medium) {
+    .app-footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding-bottom: 0;
+    }
+
+    .app-footer__tm {
+        float: left;
+        text-align: left;
+        width: 33.333%;
+    }
+
+    .app-footer__cookies {
+        float: left;
+        text-align: center;
+        width: 33.333%;
+    }
+
+    .app-footer__links {
+        float: right;
+        text-align: right;
+        width: 33.333%;
+    }
+}
+
+
+.links-set {
+    > a + a {
+        margin-left: $brand--controls-spacing;
+    }
+}
+
+.form--login {
+    display: none;
+
+    &:target {
+        display: block;
+    }
+}
+
+.form--password-recovery {
+    display: none;
+
+    &:target {
+        display: block;
+    }
+}
+
