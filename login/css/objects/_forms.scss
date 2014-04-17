@@ -17,3 +17,8 @@
         padding-top: 0;
     }
 }
+
+.form__row--spaced,
+.form__row + .form__row--spaced {
+    padding-top: $brand--controls-spacing;
+}
