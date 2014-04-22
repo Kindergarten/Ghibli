@@ -1,0 +1,57 @@
+/*------------------------------------*\
+    #FLIPPER
+\*------------------------------------*/
+/**
+ * This is a simple object for creating flip effect.
+ * HTML Example:
+
+    <div class="flipper">
+        <div class="flipper__wrapper">
+            <div class="flipper__side flipper__side--front">Front</div>
+            <div class="flipper__side flipper__side--rear">Rear</div>
+        </div>
+    </div>
+
+
+ * NOTE:
+ * `.flipper__side` adds absolute position to the element which affects the box model dimensions therefore
+ * `.flipper__side` or `.flipper_wrapper` should have predefined width and height.
+ */
+
+.flipper {
+    -webkit-perspective: 1000;
+
+    &.flipper--active .flipper__wrapper {
+        transform: rotateY(180deg);
+    }
+}
+
+/** Use this modifier to trigger flip effect on hover. */
+.flipper--hovered {
+
+    &:hover .flipper__wrapper {
+        transform: rotateY(180deg);
+    }
+}
+
+    .flipper__wrapper {
+        position: relative;
+        transition: .3s;
+        transform-style: preserve-3d;
+    }
+
+        .flipper__side {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .flipper__side--front {
+            z-index: 2;
+        }
+
+        .flipper__side--rear {
+            transform: rotateY(180deg);
+        }

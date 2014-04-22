@@ -1,0 +1,22 @@
+/*------------------------------------*\
+    #BUTTON-GROUP
+\*------------------------------------*/
+
+
+/*
+    The purpose of `.buttons-group` helper is help layout buttons using dynamic widths.
+    This class basically adds some spacing between buttons. HTML Example;
+
+
+    <div class="two-thirds float--left buttons-group">
+        <button class="button one-whole">Button 1</button>
+    </div>
+
+    <div class="one-third float--left buttons-group">
+        <button class="button one-whole">Button 2</button>
+    </div>
+*/
+
+.button-group + .button-group {
+    padding-left: $brand--controls-spacing;
+}

@@ -6,93 +6,83 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/nasty.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="js/modernizr.js"></script>
 </head>
 <body>
 
-    <section class="app-ctrl">
+    <section class="login-ctrl flipper" id="app">
 
         <a href="/" class="logo"></a>
 
-        <div id="login" class="form form--login">
-            <div class="form__row">
-                <div class="input-helper">
-                    <input type="email" class="one-whole" placeholder="Username or e-mail..." tabindex="1" />
-                    <div class="icon icon--user2"></div>
-                    <div class="input-helper__message">Invalid e-mail or username.</div>
-                    <div class="input-helper__message input-helper__message--error">Invalid e-mail or username.</div>
-                    <div class="input-helper__message input-helper__message--warning">Warning! Cats are almost as intelligent as humans.</div>
-                    <div class="input-helper__message input-helper__message--success">Success! Cats rule the world!</div>
+        <div class="login-panel flipper__wrapper">
+            <div id="login" class="form form--login flipper__side flipper__side--front">
+                <div class="form__row">
+                    <div class="input-group input-group--error">
+                        <input type="email" class="one-whole" placeholder="Username or e-mail..." tabindex="1" />
+                        <div class="icon icon--user2"></div>
+                        <div class="input-group__message input-group__message--error">Invalid e-mail or username.</div>
+                    </div>
+                </div>
+
+                <div class="form__row">
+                    <div class="input-group">
+                        <input type="password" class="one-whole" placeholder="Password..." tabindex="2" />
+                        <div class="icon icon--lock"></div>
+                    </div>
+                </div>
+
+                <div class="form__row">
+                    <div class="one-whole cf">
+                        <div class="float--left">
+                            <input type="checkbox" id="keep-logged-in" tabindex="3" />
+                            <label for="keep-logged-in">Keep me logged in</label>
+                        </div>
+                        <a href="#forgot-password" class="float--right" id="forgot-password" tabindex="4">Forgot password?</a>
+                    </div>
+                </div>
+
+                <div class="form__row form__row--spaced">
+                    <button class="button button--primary one-whole" tabindex="5">Log in</button>
                 </div>
             </div>
 
-            <div class="form__row">
-                <div class="input-helper">
-                    <input type="password" class="one-whole" placeholder="Password..." tabindex="2" />
-                    <div class="icon icon--lock"></div>
-                </div>
-            </div>
-
-            <div class="form__row">
-                <div class="one-whole cf">
-                    <label class="float--left">
-                        <input type="checkbox" tabindex="3" />
-                        Keep me logged in
-                    </label>
-                    <a href="#forgot-password" class="float--right" tabindex="4">Forgot password?</a>
-                </div>
-            </div>
-
-            <div class="form__row form__row--spaced">
-                <button class="button button--primary one-whole" tabindex="5">Log in</button>
-            </div>
-        </div>
-
-        <div id="forgot-password" class="form form--password-recovery">
-            <div class="form__row">
-                <label for="request-password">Enter your email address below and we'll send your login details.</label>
-            </div>
-
-            <div class="form__row">
-                <div class="input-helper">
-                    <input id="request-password" class="one-whole" type="email" placeholder="Enter your e-mail address..." tabindex="6" />
-                    <div class="icon icon--mail"></div>
-                </div>
-            </div>
-
-            <div class="form__row form__row--spaced">
-                <div class="two-thirds float--left buttons-group">
-                    <button class="button button--secondary one-whole" tabindex="7">Send Password</button>
+            <div id="forgot-password" class="form form--password-recovery flipper__side flipper__side--rear">
+                <div class="form__row">
+                    <label for="request-password">Enter your email address below and we'll send your login details.</label>
                 </div>
 
-                <div class="one-third float--left buttons-group">
-                    <button class="button one-whole" tabindex="8" onclick="window.location.hash = '#login'">Cancel</button>
+                <div class="form__row">
+                    <div class="input-group">
+                        <input id="request-password" class="one-whole" type="email" placeholder="Enter your e-mail address..." tabindex="6" />
+                        <div class="icon icon--mail"></div>
+                    </div>
+                </div>
+
+                <div class="form__row form__row--spaced cf">
+                    <div class="two-thirds float--left button-group">
+                        <button class="button button--secondary one-whole" tabindex="7">Send Password</button>
+                    </div>
+
+                    <div class="one-third float--left button-group">
+                        <button class="button one-whole" tabindex="8" id="cancel-password-recovery">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="app-footer">
-        <div class="app-footer__tm">
+    <footer class="login-footer">
+        <div class="login-footer__section-1">
             <p>Brand View &reg; is a registered trademark.</p>
         </div>
-        <div class="app-footer__cookies">
-            <p>By using our services, you agree to <a href="#4">our use of cookies</a>.</p>
-        </div>
-        <div class="app-footer__links">
+        <div class="login-footer__section-2">
             <p class="links-set"><a href="#1">Contact Support</a> <a href="#2">Terms of Service</a> <a href="#3">Privacy Policy</a></p>
         </div>
     </footer>
 
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
-    <script>
-        WebFont.load({
-            google: {
-                families: ["Open+Sans:400,300,600:latin"]
-            }
-        });
-    </script>
     <script src="js/bundle.js"></script>
 </body>
 </html>

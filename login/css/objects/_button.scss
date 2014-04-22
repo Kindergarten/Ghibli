@@ -1,0 +1,47 @@
+/*------------------------------------*\
+    #BUTTON
+\*------------------------------------*/
+
+button,
+.button {
+    position: relative;
+    top: 0;
+    padding-top: $brand--controls-spacing;
+    padding-bottom: $brand--controls-spacing;
+    padding-left: $brand--controls-spacing * 2;
+    padding-right: $brand--controls-spacing * 2;
+    color: $brand--button-text-color--1;
+    font-weight: 300;
+    border: none;
+    @include vendor(border-radius, $brand--round);
+    @include vendor(transition, all 75ms);
+
+    &:active {
+        top: .2em;
+        border-bottom-width: .2em;
+    }
+
+    & + .button {
+        margin-left: $brand--controls-spacing;
+    }
+}
+
+.button--large {
+    font-size: 1.2em;
+    letter-spacing: -1px;
+    padding-top: $brand--controls-spacing * 1.1;
+    padding-bottom: $brand--controls-spacing * 1.1;
+    padding-left: $brand--controls-spacing * 1.1 * 2;
+    padding-right: $brand--controls-spacing * 1.1 * 2;
+}
+
+.button--small {
+    font: {
+        size: 0.9em;
+        width: 400;
+    };
+    padding-top: $brand--controls-spacing / 1.1;
+    padding-bottom: $brand--controls-spacing / 1.1;
+    padding-left: $brand--controls-spacing / 1.1 * 2;
+    padding-right: $brand--controls-spacing / 1.1 * 2;
+}

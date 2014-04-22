@@ -13,7 +13,8 @@ textarea {
         background-color: $brand--input-color--hover;
     }
 
-    &:focus {
+    &:not([type=radio]):not([type=checkbox]):focus {
+        outline: none;
         background-color: $brand--input-color--active;
     }
 
@@ -34,4 +35,8 @@ textarea {
 
 :-ms-input-placeholder {
     color: $brand--input-text-color--placeholder;
+}
+
+input + label {
+    margin-left: $brand--controls-spacing / 2;
 }

@@ -11,6 +11,7 @@
  * OBJECTS..........Objects, abstractions, design patterns.
  * GUI..............Components and modules.
  * TRUMPS...........Helpers, overrides, ‘trump-cards’.
+ * PAGES............Page-specific styles.
  */
 
 
@@ -23,9 +24,6 @@
 @import "settings/all",
         "tools/functions",
         "tools/mixins";
-
-
-
 
 
 /*------------------------------------*\
@@ -88,3 +86,15 @@
  * other styles, e.g. `.float--left {}`.
  */
 @import "trumps/all";
+
+
+
+/*------------------------------------*\
+    #PAGES
+\*------------------------------------*/
+/**
+ * These are page-specific styles.
+ */
+
+
+@import "pages/all";

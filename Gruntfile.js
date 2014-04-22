@@ -18,7 +18,7 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 src: [
-                    "./bower_components/angular/angular.js"
+                    "./login/js/page.js"
                 ],
                 dest: "./login/js/bundle.js"
             },
@@ -68,7 +68,7 @@ module.exports = function (grunt) {
 
         watch: {
             dist: {
-                files: ["./login/css/**/*.scss"],
+                files: ["./login/css/**/*.scss", "./login/js/page.js"],
                 tasks: ["build_dev"]
             }
         }
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
      * The purpose of this task is to compile all files but keeping them readable (not minified).
      */
 
-    grunt.registerTask("build_dev", ["sass"]);
+    grunt.registerTask("build_dev", ["sass", "concat:js"]);
 
 
     /**

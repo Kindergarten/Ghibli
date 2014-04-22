@@ -1,0 +1,86 @@
+/*------------------------------------*\
+    #INPUTS
+\*------------------------------------*/
+
+/* Additions to inputs styling. */
+
+.input-group {
+    @extend .cf;
+    position: relative;
+
+    * { float: left; }
+
+    /* TODO: Find a better way to position an icon. */
+    .icon {
+        position: absolute;
+        z-index: 2;
+        top: .5em;
+        left: .5em;
+        color: $brand--input-text-color--placeholder;
+        font-size: 1.5em;
+        @include vendor(transition, all .2s);
+    }
+
+    input {
+        position: relative;
+        z-index: 1;
+        padding-left: 3em;
+    }
+
+    input.valid + .icon,
+    input:focus + .icon { color: $brand--input-text-color; }
+}
+
+.input-group__message {
+    padding: $brand--controls-spacing / 3;
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    width: 100%;
+    color: $brand--msg-text-color;
+    font-size: 80%;
+    background: $brand--button-default-color;
+    @include vendor(transition, all .2s);
+}
+
+.input-group__message--success {
+    background: $brand--success;
+}
+
+.input-group__message--error {
+    background: $brand--error;
+}
+
+.input-group__message--warning {
+    background: $brand--warning;
+}
+
+.input-group--warning,
+.input-group--error:hover,
+.input-group--success {
+
+    .input-group__message--warning,
+    .input-group__message--error,
+    .input-group__message--success {
+        transition: all .5s;
+        transform: translateY(100%);
+    }
+}
+
+.input-group--warning {
+    input:not([type=radio]):not([type=checkbox]) {
+        box-shadow: 0 0 0 .1em $brand--warning inset;
+    }
+}
+
+.input-group--error:hover {
+    input:not([type=radio]):not([type=checkbox]) {
+        box-shadow: 0 0 0 .1em $brand--error inset;
+    }
+}
+
+.input-group--success {
+    input:not([type=radio]):not([type=checkbox]) {
+        box-shadow: 0 0 0 .1em $brand--success inset;
+    }
+}

@@ -24,6 +24,9 @@
 
 @media all and (min-width: $base--breakpoint--small) {
     .logo {
-        padding-top: 18%; /** Using percentage to keep ratio. */
+        /**
+         * Using padding top as percentage to keep image ratio when the image is gets resized.
+         */
+        padding-top: 18%;
     }
 }

@@ -10,6 +10,7 @@
  * OBJECTS..........Objects, abstractions, design patterns.
  * GUI..............Components and modules.
  * TRUMPS...........Helpers, overrides, ‘trump-cards’.
+ * PAGES............Page-specific styles.
  */
 /*------------------------------------*\
     #SETUP
@@ -460,12 +461,12 @@ ul, ol, dd {
  * Extend the clearfix class with Sass to avoid the `.cf` class appearing over
  * and over in your markup.
  */
-.cf, .input-helper, .box {
+.cf, .input-group {
   zoom: 1; }
-  .cf:before, .input-helper:before, .box:before, .cf:after, .input-helper:after, .box:after {
+  .cf:before, .input-group:before, .cf:after, .input-group:after {
     content: " ";
     display: table; }
-  .cf:after, .input-helper:after, .box:after {
+  .cf:after, .input-group:after {
     clear: both; }
 
 /*------------------------------------*\
@@ -546,7 +547,8 @@ input, textarea {
   transition: all 0.1s; }
   input:hover, textarea:hover {
     background-color: #1c3655; }
-  input:focus, textarea:focus {
+  input:not([type=radio]):not([type=checkbox]):focus, textarea:not([type=radio]):not([type=checkbox]):focus {
+    outline: none;
     background-color: #1f3e60; }
 
 ::-webkit-input-placeholder {
@@ -563,6 +565,9 @@ input, textarea {
 :-ms-input-placeholder {
   color: #304d6e; }
 
+input + label {
+  margin-left: 0.5em; }
+
 /*------------------------------------*\
     #OBJECTS
 \*------------------------------------*/
@@ -577,223 +582,9 @@ input, textarea {
  * Pull in all our objects and abstractions.
  */
 /*------------------------------------*\
-    #LAYOUT
+    #BUTTON
 \*------------------------------------*/
-/**
- * Our layout system (note, not grid system) can be used to lay out all manner
- * of things, from full page layouts to individual components.
- */
-/**
- * 1. Allow the layout system to be used on lists.
- * 2. Remove any margins and paddings that might affect the layout system.
- * 3. Apply a negative `margin-left` to negate the columns’ gutters.
- */
-.layout {
-  list-style: none;
-  /* [1] */
-  margin: 0;
-  /* [2] */
-  padding: 0;
-  /* [2] */
-  margin-left: -24px;
-  /* [3] */ }
-
-/**
-     * 1. Cause columns to stack side-by-side.
-     * 2. Space columns apart.
-     * 3. Align columns to the tops of each other.
-     * 4. Full-width unless told to behave otherwise.
-     */
-.layout__item {
-  display: inline-block;
-  /* [1] */
-  padding-left: 24px;
-  /* [2] */
-  vertical-align: top;
-  /* [3] */
-  width: 100%;
-  /* [4] */ }
-
-/**
- * Reversed layouts allow you to structure your source in the opposite order to
- * how your rendered layout will appear. Extends `.layout`.
- */
-.layout--rev {
-  direction: rtl;
-  text-align: left; }
-  .layout--rev > .layout__item {
-    direction: ltr;
-    text-align: left; }
-
-/**
- * Gutterless layouts have all the properties of regular layouts, minus any
- * spacing. Extends `.layout`.
- */
-.layout--gutterless {
-  margin-left: 0; }
-  .layout--gutterless > .layout__item {
-    padding-left: 0; }
-
-/**
- * Align the entire layout to the right. Extends `.layout`.
- */
-.layout--right {
-  text-align: right; }
-  .layout--right > .layout__item {
-    text-align: left; }
-
-/**
- * Centered layouts align layout items centrally without needing to use push or pull
- * classes. Extends `.layout`.
- */
-.layout--center {
-  text-align: center; }
-  .layout--center > .layout__item {
-    text-align: left; }
-
-/**
- * Align layout cells vertically (`.layout--middle` or `.layout--bottom`). Extends
- * `.layout`.
- */
-.layout--middle > .layout__item {
-  vertical-align: middle; }
-
-.layout--bottom > .layout__item {
-  vertical-align: bottom; }
-
-/**
- * Create layouts with narrower gutters. Extends `.layout`.
- */
-.layout--small {
-  margin-left: -12px; }
-  .layout--small > .layout__item {
-    padding-left: 12px; }
-
-/**
- * Create layouts with wider gutters. Extends `.layout`.
- */
-.layout--large {
-  margin-left: -48px; }
-  .layout--large > .layout__item {
-    padding-left: 48px; }
-
-.app-ctrl {
-  margin: 0 auto;
-  max-width: 40em;
-  padding: 1em; }
-
-@media all and (min-width: 40em) {
-  .app-ctrl {
-    max-width: 30em; } }
-
-@media all and (min-width: 80em) {
-  .app-ctrl {
-    max-width: 32em; } }
-
-@media all and (min-width: 120em) {
-  .app-ctrl {
-    max-width: 34em; } }
-
-.app-footer {
-  padding: 1em;
-  text-align: center; }
-
-@media all and (min-width: 40em) {
-  .app-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding-bottom: 0; } }
-
-@media all and (min-width: 80em) {
-  .app-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding-bottom: 0; }
-  .app-footer__tm {
-    float: left;
-    text-align: left;
-    width: 33.333%; }
-  .app-footer__cookies {
-    float: left;
-    text-align: center;
-    width: 33.333%; }
-  .app-footer__links {
-    float: right;
-    text-align: right;
-    width: 33.333%; } }
-
-.links-set > a + a {
-  margin-left: 1em; }
-
-.form--login {
-  display: none; }
-  .form--login:target {
-    display: block; }
-
-.form--password-recovery {
-  display: none; }
-  .form--password-recovery:target {
-    display: block; }
-
-/*------------------------------------*\
-    #FLAG
-\*------------------------------------*/
-/**
- * The flag object is a variation of Nicole Sullivan’s media object. It is used
- * to lay out image-like and text-like content side-by-side.
- */
-.flag {
-  display: table;
-  width: 100%; }
-
-.flag__image, .flag__body {
-  display: table-cell;
-  vertical-align: top; }
-  .flag--middle .flag__image, .flag--middle .flag__body {
-    vertical-align: middle; }
-  .flag--bottom .flag__image, .flag--bottom .flag__body {
-    vertical-align: bottom; }
-
-.flag__image {
-  padding-right: 24px; }
-  .flag__image > img {
-    display: block;
-    max-width: none; }
-  .flag--rev .flag__image {
-    padding-right: 0;
-    padding-left: 24px; }
-
-.flag__body {
-  width: 100%; }
-
-/**
- * Size variations.
- */
-.flag--small > .flag__image {
-  padding-right: 12px; }
-.flag--small.flag--rev > .flag__image {
-  padding-right: 0;
-  padding-left: 12px; }
-
-.flag--large > .flag__image {
-  padding-right: 48px; }
-.flag--large.flag--rev > .flag__image {
-  padding-right: 0;
-  padding-left: 48px; }
-
-/**
- * Gutterless flags. Extends `.flag`.
- */
-.flag--gutterless > .flag__image {
-  padding-right: 0;
-  padding-left: 0; }
-
-/*------------------------------------*\
-    #BUTTONS
-\*------------------------------------*/
-.button {
+button, .button {
   position: relative;
   top: 0;
   padding-top: 1em;
@@ -803,24 +594,20 @@ input, textarea {
   color: #fff;
   font-weight: 300;
   border: none;
-  background-color: #505355;
-  box-shadow: 0 0.4em 0 0 #37393b;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
   border-radius: 2px;
-  -webkit-transition: all 0.05s;
-  -moz-transition: all 0.05s;
-  -ms-transition: all 0.05s;
-  -o-transition: all 0.05s;
-  transition: all 0.05s; }
-  .button:active {
+  -webkit-transition: all 75ms;
+  -moz-transition: all 75ms;
+  -ms-transition: all 75ms;
+  -o-transition: all 75ms;
+  transition: all 75ms; }
+  button:active, .button:active {
     top: 0.2em;
-    border-bottom-width: 0.2em;
-    background-color: #444648;
-    box-shadow: 0 0.2em 0 0 #2b2d2e; }
-  .button + .button {
+    border-bottom-width: 0.2em; }
+  button + .button, .button + .button {
     margin-left: 1em; }
 
 .button--large {
@@ -839,7 +626,177 @@ input, textarea {
   padding-left: 1.81818em;
   padding-right: 1.81818em; }
 
-/* Button Styles */
+/*------------------------------------*\
+    #BUTTON-GROUP
+\*------------------------------------*/
+/*
+    The purpose of `.buttons-group` helper is help layout buttons using dynamic widths.
+    This class basically adds some spacing between buttons. HTML Example;
+
+
+    <div class="two-thirds float--left buttons-group">
+        <button class="button one-whole">Button 1</button>
+    </div>
+
+    <div class="one-third float--left buttons-group">
+        <button class="button one-whole">Button 2</button>
+    </div>
+*/
+.button-group + .button-group {
+  padding-left: 1em; }
+
+/*------------------------------------*\
+    #FLIPPER
+\*------------------------------------*/
+/**
+ * This is a simple object for creating flip effect.
+ * HTML Example:
+
+    <div class="flipper">
+        <div class="flipper__wrapper">
+            <div class="flipper__side flipper__side--front">Front</div>
+            <div class="flipper__side flipper__side--rear">Rear</div>
+        </div>
+    </div>
+
+
+ * NOTE:
+ * `.flipper__side` adds absolute position to the element which affects the box model dimensions therefore
+ * `.flipper__side` or `.flipper_wrapper` should have predefined width and height.
+ */
+.flipper {
+  -webkit-perspective: 1000; }
+  .flipper.flipper--active .flipper__wrapper {
+    transform: rotateY(180deg); }
+
+/** Use this modifier to trigger flip effect on hover. */
+.flipper--hovered:hover .flipper__wrapper {
+  transform: rotateY(180deg); }
+
+.flipper__wrapper {
+  position: relative;
+  transition: 0.3s;
+  transform-style: preserve-3d; }
+
+.flipper__side {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; }
+
+.flipper__side--front {
+  z-index: 2; }
+
+.flipper__side--rear {
+  transform: rotateY(180deg); }
+
+/*------------------------------------*\
+    #FORM
+\*------------------------------------*/
+
+.form__row {
+  padding: 1em 0; }
+  .form__row + .form__row {
+    padding-top: 0; }
+
+.form__row--spaced, .form__row + .form__row--spaced {
+  padding-top: 1em; }
+
+/*------------------------------------*\
+    #INPUTS
+\*------------------------------------*/
+/* Additions to inputs styling. */
+.input-group {
+  position: relative;
+  /* TODO: Find a better way to position an icon. */ }
+  .input-group * {
+    float: left; }
+  .input-group .icon {
+    position: absolute;
+    z-index: 2;
+    top: 0.5em;
+    left: 0.5em;
+    color: #304d6e;
+    font-size: 1.5em;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s; }
+  .input-group input {
+    position: relative;
+    z-index: 1;
+    padding-left: 3em; }
+  .input-group input.valid + .icon, .input-group input:focus + .icon {
+    color: #afc8e6; }
+
+.input-group__message {
+  padding: 0.33333em;
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  width: 100%;
+  color: #fff;
+  font-size: 80%;
+  background: #505355;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s; }
+
+.input-group__message--success {
+  background: #62a13d; }
+
+.input-group__message--error {
+  background: #a13d3d; }
+
+.input-group__message--warning {
+  background: #a1a03d; }
+
+.input-group--warning .input-group__message--warning, .input-group--warning .input-group__message--error, .input-group--warning .input-group__message--success, .input-group--error:hover .input-group__message--warning, .input-group--error:hover .input-group__message--error, .input-group--error:hover .input-group__message--success, .input-group--success .input-group__message--warning, .input-group--success .input-group__message--error, .input-group--success .input-group__message--success {
+  transition: all 0.5s;
+  transform: translateY(100%); }
+
+.input-group--warning input:not([type=radio]):not([type=checkbox]) {
+  box-shadow: 0 0 0 0.1em #a1a03d inset; }
+
+.input-group--error:hover input:not([type=radio]):not([type=checkbox]) {
+  box-shadow: 0 0 0 0.1em #a13d3d inset; }
+
+.input-group--success input:not([type=radio]):not([type=checkbox]) {
+  box-shadow: 0 0 0 0.1em #62a13d inset; }
+
+/*------------------------------------*\
+    #LINKS-SET
+\*------------------------------------*/
+.links-set > a + a {
+  margin-left: 1em; }
+
+/*------------------------------------*\
+    #GUI
+\*------------------------------------*/
+/**
+ * These are your components and modules; things like buttons, accordions,
+ * carousels, etc.
+ */
+/*------------------------------------*\
+    #GUI
+\*------------------------------------*/
+/**
+ * Pull in all our GUI components.
+ */
+/*------------------------------------*\
+    #BUTTONS
+\*------------------------------------*/
+button, .button {
+  background-color: #505355;
+  box-shadow: 0 0.4em 0 0 #37393b; }
+  button:active, .button:active {
+    background-color: #444648;
+    box-shadow: 0 0.2em 0 0 #2b2d2e; }
+
 .button--primary {
   background-color: #4a8b35;
   box-shadow: 0 0.4em 0 0 #376627; }
@@ -854,29 +811,12 @@ input, textarea {
     background-color: #2061b5;
     box-shadow: 0 0.2em 0 0 #184a8a; }
 
-/* Layout Helpers */
-/*
-    The purpose of `.buttons-group` helper is help layout buttons using dynamic widths.
-    This class basically adds some spacing between buttons. HTML Example;
-
-
-    <div class="two-thirds float--left buttons-group">
-        <button class="button one-whole">Button 1</button>
-    </div>
-
-    <div class="one-third float--left buttons-group">
-        <button class="button one-whole">Button 2</button>
-    </div>
-*/
-.buttons-group + .buttons-group {
-  padding-left: 1em; }
-
 @font-face {
   font-family: "IconSweets-Deluxe";
   font-weight: normal;
   font-style: normal;
-  src: url("/assets/fonts/IconSweets-Deluxe.eot");
-  src: url("/assets/fonts/IconSweets-Deluxe.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/IconSweets-Deluxe.woff") format("woff"), url("/assets/fonts/IconSweets-Deluxe.ttf") format("truetype"), url("/assets/fonts/IconSweets-Deluxe.svg#IconSweets-Deluxe") format("svg"); }
+  src: url("../assets/fonts/IconSweets-Deluxe.eot");
+  src: url("../assets/fonts/IconSweets-Deluxe.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/IconSweets-Deluxe.woff") format("woff"), url("../assets/fonts/IconSweets-Deluxe.ttf") format("truetype"), url("../assets/fonts/IconSweets-Deluxe.svg#IconSweets-Deluxe") format("svg"); }
 
 /* Use the following CSS code if you want to use data attributes for inserting your icons */
 [data-icon]:before {
@@ -2136,125 +2076,6 @@ you can use the generic selector below, but it's slower:
   content: "\e199"; }
 
 /*------------------------------------*\
-    #FORMS
-\*------------------------------------*/
-
-.form__row {
-  padding: 1em 0; }
-  .form__row + .form__row {
-    padding-top: 0; }
-
-.form__row--spaced, .form__row + .form__row--spaced {
-  padding-top: 1em; }
-
-/*------------------------------------*\
-    #INPUTS
-\*------------------------------------*/
-/* Additions to inputs styling. */
-.input-helper {
-  position: relative;
-  /* TODO: Find a better way to position an icon. */ }
-  .input-helper * {
-    float: left; }
-  .input-helper .icon {
-    position: absolute;
-    z-index: 3;
-    top: 0.6em;
-    left: 0.6em;
-    color: #304d6e;
-    font-size: 1.5em;
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    -ms-transition: all 0.2s;
-    -o-transition: all 0.2s;
-    transition: all 0.2s; }
-  .input-helper input {
-    position: relative;
-    z-index: 2;
-    padding-left: 3em; }
-  .input-helper input.valid + .icon, .input-helper input:focus + .icon {
-    color: #afc8e6; }
-
-.input-helper__message {
-  position: absolute;
-  z-index: 1;
-  padding: 0.33333em;
-  display: block;
-  width: 100%;
-  color: #fff;
-  font-size: 80%;
-  background: #505355; }
-
-.input-helper__message--success {
-  background: #62a13d; }
-
-.input-helper__message--error {
-  background: #a13d3d; }
-
-.input-helper__message--warning {
-  background: #a1a03d; }
-
-/*------------------------------------*\
-    #BOX
-\*------------------------------------*/
-/**
- * Simple, boxed off content, e.g.:
- * 
-   <div class="box">
-       I am boxed off.
-   </div>
- * 
- */
-.box {
-  display: block;
-  padding: 24px; }
-  .box > :last-child {
-    margin-bottom: 0; }
-
-/**
- * Size variations.
- */
-.box--small {
-  padding: 12px; }
-
-.box--large {
-  padding: 48px; }
-
-/**
- * Rounded corners.
- */
-.box--soft {
-  border-radius: 2px; }
-
-/**
- * Fully rounded box.
- */
-.box--round {
-  border-radius: 100%; }
-
-/*------------------------------------*\
-    #GUI
-\*------------------------------------*/
-/**
- * These are your components and modules; things like buttons, accordions,
- * carousels, etc.
- */
-/*------------------------------------*\
-    #GUI
-\*------------------------------------*/
-/**
- * Pull in all our GUI components.
- */
-/*------------------------------------*\
-    #BOXES
-\*------------------------------------*/
-/**
- * Styles of box. These extend the `.box` object.
- */
-.box--promo {
-  color: #fff; }
-
-/*------------------------------------*\
     #LOGO
 \*------------------------------------*/
 .logo {
@@ -2275,8 +2096,10 @@ you can use the generic selector below, but it's slower:
 
 @media all and (min-width: 40em) {
   .logo {
-    padding-top: 18%;
-    /** Using percentage to keep ratio. */ } }
+    /**
+         * Using padding top as percentage to keep image ratio when the image is gets resized.
+         */
+    padding-top: 18%; } }
 
 /*------------------------------------*\
     #TRUMPS
@@ -2436,12 +2259,57 @@ you can use the generic selector below, but it's slower:
 .float--left {
   float: left !important; }
 
-.center--block {
+.float--middle {
   margin-left: auto !important;
   margin-right: auto !important; }
 
+/*------------------------------------*\
+    #PAGES
+\*------------------------------------*/
 /**
- * Round corners.
+ * These are page-specific styles.
  */
-.soft {
-  border-radius: 2px !important; }
+/*------------------------------------*\
+    #PAGES
+\*------------------------------------*/
+/**
+ * Pull in all our page-specific styles.
+ */
+/*------------------------------------*\
+    #LOGIN
+\*------------------------------------*/
+.login-panel {
+  height: 20em; }
+
+.login-ctrl {
+  margin: 0 auto;
+  max-width: 40em;
+  padding: 1em; }
+
+@media all and (min-width: 40em) {
+  .login-ctrl {
+    max-width: 30em; } }
+
+@media all and (min-width: 80em) {
+  .login-ctrl {
+    max-width: 32em; } }
+
+@media all and (min-width: 120em) {
+  .login-ctrl {
+    max-width: 34em; } }
+
+.login-footer {
+  padding: 1em;
+  text-align: center; }
+
+@media all and (min-width: 40em) {
+  .login-footer {
+    padding-bottom: 0; }
+  .login-footer__section-1 {
+    float: left;
+    text-align: left;
+    width: 40%; }
+  .login-footer__section-2 {
+    float: right;
+    text-align: right;
+    width: 60%; } }

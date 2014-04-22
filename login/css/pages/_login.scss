@@ -1,0 +1,57 @@
+/*------------------------------------*\
+    #LOGIN
+\*------------------------------------*/
+
+.login-panel {
+    height: 20em;
+}
+
+.login-ctrl {
+    margin: 0 auto;
+    max-width: 40em;
+    padding: $brand--controls-spacing;
+}
+
+@media all and (min-width: $base--breakpoint--small) {
+    .login-ctrl {
+        max-width: 30em;
+    }
+}
+
+@media all and (min-width: $base--breakpoint--medium) {
+    .login-ctrl {
+        max-width: 32em;
+    }
+}
+
+@media all and (min-width: $base--breakpoint--large) {
+    .login-ctrl {
+        max-width: 34em;
+    }
+}
+
+
+.login-footer {
+    padding: $brand--controls-spacing;
+    text-align: center;
+}
+
+
+@media all and (min-width: $base--breakpoint--small) {
+    .login-footer {
+        padding-bottom: 0;
+    }
+
+    .login-footer__section-1 {
+        float: left;
+        text-align: left;
+        width: 40%;
+    }
+
+    .login-footer__section-2 {
+        float: right;
+        text-align: right;
+        width: 60%;
+    }
+}
+

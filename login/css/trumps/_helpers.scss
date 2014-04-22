@@ -13,12 +13,7 @@
 .float--none    { float: none !important; }
 .float--right   { float: right!important; }
 .float--left    { float: left !important; }
-
-.center--block { margin-left: auto !important; margin-right: auto !important; }
-
-/**
- * Round corners.
- */
-.soft {
-    border-radius: $brand--round!important;
+.float--middle  {
+    margin-left: auto !important;
+    margin-right: auto !important;
 }

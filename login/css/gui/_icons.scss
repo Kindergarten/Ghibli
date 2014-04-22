@@ -4,11 +4,11 @@
         weight: normal;
         style: normal;
     };
-    src:    url("/assets/fonts/IconSweets-Deluxe.eot");
-    src:    url("/assets/fonts/IconSweets-Deluxe.eot?#iefix")               format("embedded-opentype"),
-            url("/assets/fonts/IconSweets-Deluxe.woff")                     format("woff"),
-            url("/assets/fonts/IconSweets-Deluxe.ttf")                      format("truetype"),
-            url("/assets/fonts/IconSweets-Deluxe.svg#IconSweets-Deluxe")    format("svg");
+    src:    url("../assets/fonts/IconSweets-Deluxe.eot");
+    src:    url("../assets/fonts/IconSweets-Deluxe.eot?#iefix")               format("embedded-opentype"),
+            url("../assets/fonts/IconSweets-Deluxe.woff")                     format("woff"),
+            url("../assets/fonts/IconSweets-Deluxe.ttf")                      format("truetype"),
+            url("../assets/fonts/IconSweets-Deluxe.svg#IconSweets-Deluxe")    format("svg");
 }
 
 /* Use the following CSS code if you want to use data attributes for inserting your icons */

@@ -1,0 +1,34 @@
+/*------------------------------------*\
+    #BUTTONS
+\*------------------------------------*/
+
+button,
+.button {
+    background-color: $brand--button-default-color;
+    box-shadow: 0 .4em 0 0 darken($brand--button-default-color, 10%);
+
+    &:active {
+        background-color: darken($brand--button-default-color, 5%);
+        box-shadow: 0 .2em 0 0 darken($brand--button-default-color, 15%);
+    }
+}
+
+.button--primary {
+    background-color: $brand--button-primary-color;
+    box-shadow: 0 .4em 0 0 darken($brand--button-primary-color, 10%);
+
+    &:active {
+        background-color: darken($brand--button-primary-color, 5%);
+        box-shadow: 0 .2em 0 0 darken($brand--button-primary-color, 15%);
+    }
+}
+
+.button--secondary {
+    background-color: $brand--button-secondary-color;
+    box-shadow: 0 .4em 0 0 darken($brand--button-secondary-color, 10%);
+
+    &:active {
+        background-color: darken($brand--button-secondary-color, 5%);
+        box-shadow: 0 .2em 0 0 darken($brand--button-secondary-color, 15%);
+    }
+}
