@@ -6,83 +6,141 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link href="css/nasty.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="js/modernizr.js"></script>
+    <script src="js/libs/modernizr.js"></script>
 </head>
 <body>
-
-    <section class="login-ctrl flipper" id="app">
+    <section id="app" class="login-ctrl flipper">
 
         <a href="/" class="logo"></a>
 
         <div class="login-panel flipper__wrapper">
-            <div id="login" class="form form--login flipper__side flipper__side--front">
+
+            <!-- "Login" View -->
+
+            <div class="form flipper__side flipper__side--front">
                 <div class="form__row">
-                    <div class="input-group input-group--error">
-                        <input type="email" class="one-whole" placeholder="Username or e-mail..." tabindex="1" />
-                        <div class="icon icon--user2"></div>
-                        <div class="input-group__message input-group__message--error">Invalid e-mail or username.</div>
+                    <label for="login--username">Enter your username or e-mail</label>
+                    <div id="login--username-ctrl" class="input-group">
+                        <input id="login--username" type="email" class="one-whole" placeholder="Username or e-mail..." tabindex="1" maxlength="128" />
+                        <i class="icon icon--user2"></i>
+                        <div class="input-group__message"></div>
                     </div>
                 </div>
 
                 <div class="form__row">
-                    <div class="input-group">
-                        <input type="password" class="one-whole" placeholder="Password..." tabindex="2" />
-                        <div class="icon icon--lock"></div>
+                    <label for="login--password">Enter your password</label>
+                    <div id="login--password-ctrl" class="input-group">
+                        <input id="login--password" type="password" class="one-whole" placeholder="Password..." tabindex="2" />
+                        <i class="icon icon--lock"></i>
+                        <div class="input-group__message"></div>
                     </div>
                 </div>
 
                 <div class="form__row">
                     <div class="one-whole cf">
                         <div class="float--left">
-                            <input type="checkbox" id="keep-logged-in" tabindex="3" />
-                            <label for="keep-logged-in">Keep me logged in</label>
+                            <input type="checkbox" id="login--keep-in" tabindex="3" checked />
+                            <label for="login--keep-in">Keep me logged in</label>
                         </div>
-                        <a href="#forgot-password" class="float--right" id="forgot-password" tabindex="4">Forgot password?</a>
+                        <a href="#" id="login--send-password" class="float--right" tabindex="5">Forgot password?</a>
                     </div>
                 </div>
 
                 <div class="form__row form__row--spaced">
-                    <button class="button button--primary one-whole" tabindex="5">Log in</button>
+                    <button id="login--log-in" class="button button--primary button--disabled one-whole" tabindex="4">Log in</button>
                 </div>
             </div>
 
-            <div id="forgot-password" class="form form--password-recovery flipper__side flipper__side--rear">
+            <!-- "Login" View End -->
+
+            <!-- "Forgot Password" View -->
+
+            <div class="form flipper__side flipper__side--rear">
                 <div class="form__row">
-                    <label for="request-password">Enter your email address below and we'll send your login details.</label>
+                    <label for="password--email" class="visible">Enter your email address below and we'll send your login details.</label>
                 </div>
 
                 <div class="form__row">
-                    <div class="input-group">
-                        <input id="request-password" class="one-whole" type="email" placeholder="Enter your e-mail address..." tabindex="6" />
-                        <div class="icon icon--mail"></div>
+                    <div id="password--email-ctrl" class="input-group">
+                        <input id="password--email" class="one-whole" type="email" placeholder="Enter your e-mail address..." tabindex="6" maxlength="128" />
+                        <i class="icon icon--mail"></i>
+                        <div class="input-group__message"></div>
                     </div>
                 </div>
 
                 <div class="form__row form__row--spaced cf">
                     <div class="two-thirds float--left button-group">
-                        <button class="button button--secondary one-whole" tabindex="7">Send Password</button>
+                        <button id="password--send" class="button button--secondary button--disabled one-whole" tabindex="7">Send Password</button>
                     </div>
 
                     <div class="one-third float--left button-group">
-                        <button class="button one-whole" tabindex="8" id="cancel-password-recovery">Cancel</button>
+                        <button id="password--cancel" class="button one-whole" tabindex="8">Cancel</button>
                     </div>
                 </div>
             </div>
+
+            <!-- "Forgot Password" View End -->
+
         </div>
     </section>
+
+    <div id="support" class="modal">
+        <div class="modal__heading">
+            <h2>Contact our Support Team</h2>
+        </div>
+        <div class="form">
+            <div class="form__row">
+                <label for="support--name">Name</label>
+                <input id="support--name" class="one-whole" maxlength="256" placeholder="Enter your name..." />
+            </div>
+            <div class="form__row">
+                <label for="support--email">E-mail</label>
+                <input id="support--email" class="one-whole" type="email" maxlength="128" placeholder="Enter your e-mail address..." />
+            </div>
+            <div class="form__row">
+                <label for="support--type">How can we help?</label>
+                <select id="support--type" class="one-whole">
+                    <option value="0" disabled>Please select...</option>
+                    <option value="1">I'm interested in using Brand View, but don't have an account.</option>
+                    <option value="2">I'm having trouble logging in.</option>
+                    <option>I haven't received my "Forgotten Password" email.</option>
+                </select>
+            </div>
+            <div class="form__row">
+                <label for="support-details">Further details</label>
+                <textarea id="support-details" class="one-whole" maxlength="500" rows="4" placeholder="Please enter any supporting information to help us quickly identify the issue."></textarea>
+            </div>
+            <div class="form__row form__row--spaced">
+                <div class="two-thirds float--left button-group">
+                    <button class="button button--secondary one-whole">Send</button>
+                </div>
+                <div class="one-third float--left button-group">
+                    <button id="support--close" class="button one-whole">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="login-footer">
         <div class="login-footer__section-1">
             <p>Brand View &reg; is a registered trademark.</p>
         </div>
         <div class="login-footer__section-2">
-            <p class="links-set"><a href="#1">Contact Support</a> <a href="#2">Terms of Service</a> <a href="#3">Privacy Policy</a></p>
+            <p class="links-set"><a href="#" id="support--trigger">Contact Support</a> <a href="//www.brandview.com/terms-of-service/">Terms of Service</a> <a href="//www.brandview.com/privacy-policy/">Privacy Policy</a></p>
         </div>
     </footer>
 
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
     <script src="js/bundle.js"></script>
+    <script>
+        (function(base) {
+            var page = base.extend(base, "Page");
+
+            page.initialise();
+
+        })(window.BV || {});
+    </script>
 </body>
 </html>

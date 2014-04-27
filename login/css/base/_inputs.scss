@@ -3,6 +3,7 @@
 \*------------------------------------*/
 
 input,
+select,
 textarea {
     padding: $brand--controls-spacing;
     color: $brand--input-text-color;
@@ -21,6 +22,16 @@ textarea {
     @include vendor(transition, all .1s);
 }
 
+textarea {
+    resize: none;
+    resize: vertical;
+}
+
+input:not([type=radio]):not([type=checkbox]),
+select {
+    height: 3.5em;
+}
+
 ::-webkit-input-placeholder {
     color: $brand--input-text-color--placeholder;
 }
@@ -37,6 +48,20 @@ textarea {
     color: $brand--input-text-color--placeholder;
 }
 
+option:disabled {
+    color: $brand--input-text-color--placeholder;
+}
+
 input + label {
     margin-left: $brand--controls-spacing / 2;
+}
+
+.input-placeholder label {
+    display: none;
+}
+
+.input-placeholder input[type=checkbox] + label,
+.input-placeholder input[type=radio] + label,
+.input-placeholder .visible {
+    display: inline-block !important;
 }

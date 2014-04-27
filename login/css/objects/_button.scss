@@ -16,7 +16,8 @@ button,
     @include vendor(border-radius, $brand--round);
     @include vendor(transition, all 75ms);
 
-    &:active {
+    &:active,
+    &.button--disabled {
         top: .2em;
         border-bottom-width: .2em;
     }

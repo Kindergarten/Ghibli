@@ -34,12 +34,17 @@
 .login-footer {
     padding: $brand--controls-spacing;
     text-align: center;
+    @extend .cf;
 }
 
 
 @media all and (min-width: $base--breakpoint--small) {
     .login-footer {
+        position: absolute;
+        bottom: 0;
         padding-bottom: 0;
+        width: 100%;
+        text-align: left;
     }
 
     .login-footer__section-1 {
@@ -52,6 +57,10 @@
         float: right;
         text-align: right;
         width: 60%;
+    }
+
+    .login-footer p {
+        margin-bottom: $brand--controls-spacing;
     }
 }
 

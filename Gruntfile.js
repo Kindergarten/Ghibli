@@ -18,15 +18,19 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 src: [
-                    "./login/js/page.js"
+                    "./login/js/brandview/controls/input-group.js",
+                    "./login/js/brandview/base.js",
+                    "./login/js/brandview/services.js",
+                    "./login/js/brandview/page.js"
                 ],
                 dest: "./login/js/bundle.js"
             },
             modernizr: {
                 src: [
-                    "./bower_components/modernizr/modernizr.js"
+                    "./bower_components/modernizr/modernizr.js",
+                    "./login/js/brandview/modernizr-tests/input-properties.js"
                 ],
-                dest: "./login/js/modernizr.js"
+                dest: "./login/js/libs/modernizr.js"
             }
         },
 
@@ -68,7 +72,7 @@ module.exports = function (grunt) {
 
         watch: {
             dist: {
-                files: ["./login/css/**/*.scss", "./login/js/page.js"],
+                files: ["./login/css/**/*.scss", "./login/js/brandview/**/*.js"],
                 tasks: ["build_dev"]
             }
         }
@@ -81,7 +85,9 @@ module.exports = function (grunt) {
      * The purpose of this task is to compile all files but keeping them readable (not minified).
      */
 
-    grunt.registerTask("build_dev", ["sass", "concat:js"]);
+    grunt.registerTask("build_dev", ["sass", "concat:js", "notify_hooks"]);
+
+    grunt.registerTask("server", ["sass", "concat:js", "notify:server"]);
 
 
     /**

@@ -60,3 +60,12 @@
     background-image: -ms-linear-gradient(top, $start-color 0%,$stop-color 100%); /* IE10+ */
     background-image: linear-gradient(to bottom, $start-color 0%,$stop-color 100%); /* W3C */
 }
+
+
+
+
+@mixin backface-visibility ($value) {
+    -webkit-backface-visibility: $value;
+       -moz-backface-visibility: $value;
+            backface-visibility: $value;
+}

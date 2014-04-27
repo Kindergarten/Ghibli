@@ -5,11 +5,14 @@ $brand--color--1:   #0a203a;
 
 $brand--round:      2px;
 
-$brand--warning:    #a1a03d;
+$brand--warning:    #cea70c;
 $brand--error:      #a13d3d;
-$brand--success:    #62a13d;
+$brand--success:    #4a8b35;
 
 $brand--msg-text-color:     #fff;
+
+/** Headings */
+$brand--heading-color-1:    #fff;
 
 /** Controls*/
 $brand--controls-spacing:       1em;
@@ -18,6 +21,7 @@ $brand--controls-spacing:       1em;
 /** Buttons */
 $brand--button-text-color--1:   #fff;
 $brand--button-default-color:   #505355;
+$brand--button-disabled-color:  #556375;
 $brand--button-primary-color:   #4a8b35;
 $brand--button-secondary-color: #246bcb;
 

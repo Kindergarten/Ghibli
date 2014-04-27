@@ -1,0 +1,62 @@
+/*------------------------------------*\
+    #MODAL
+\*------------------------------------*/
+
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    width: 100%;
+    //display: none;
+    opacity: 0;
+    padding: double($brand--controls-spacing);
+    background: darken($brand--color--1, 2.5%);
+    @include vendor(transition, all .4s);
+    @include vendor(transform-origin, top center);
+    @include vendor(transform, rotateX(65deg) scale(.5) translateY(-100%));
+
+    .no-csstransforms {
+        display: none;
+    }
+}
+
+.modal--visible {
+    display: block;
+    opacity: 1;
+    @include vendor(transform, rotateX(0) scale(1) translateY(0%));
+
+    .no-csstransforms {
+        display: block;
+    }
+}
+
+.modal__heading {
+    h1 {
+        margin: 0;
+    }
+
+    margin-bottom: $brand--controls-spacing;
+}
+
+@media all and (min-width: $base--breakpoint--small) {
+    .modal {
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+}
+
+@media all and (min-width: $base--breakpoint--medium) {
+    .modal {
+        width: 50%;
+    }
+}
+
+@media all and (min-width: $base--breakpoint--large) {
+    .modal {
+        width: 40%;
+    }
+}

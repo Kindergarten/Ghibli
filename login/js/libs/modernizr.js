@@ -1404,3 +1404,26 @@ window.Modernizr = (function( window, document, undefined ) {
     return Modernizr;
 
 })(this, this.document);
+
+(function(m) {
+    "use strict";
+
+    var html, item, key;
+
+    html = document.getElementsByTagName("html")[0];
+
+    if (m && html) {
+
+         // Check input attributes.
+        for (key in m.input) {
+            item = m.input[key];
+
+            if (item) {
+                html.classList.add("input-" + key);
+            }
+        }
+
+    }
+
+
+})(Modernizr);

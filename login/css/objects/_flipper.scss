@@ -19,39 +19,70 @@
  */
 
 .flipper {
-    -webkit-perspective: 1000;
+    .csstransforms3d &.flipper--active {
+        .flipper__side--front {
+            opacity: 0;
+            @include vendor(transform, rotate3d(0, 1, 0, 180deg));
+        }
 
-    &.flipper--active .flipper__wrapper {
-        transform: rotateY(180deg);
+        .flipper__side--rear {
+            opacity: 1;
+            @include vendor(transform, rotate3d(0, 1, 0, 0deg));
+        }
+    }
+
+    .no-csstransforms3d &.flipper--active {
+        .flipper__side--front { display: none; }
+
+        .flipper__side--rear { display: block; }
     }
 }
 
 /** Use this modifier to trigger flip effect on hover. */
 .flipper--hovered {
 
-    &:hover .flipper__wrapper {
-        transform: rotateY(180deg);
+    &:hover {
+        .flipper__side--front {
+            //opacity: 0;
+            @include vendor(transform, rotate3d(0, 1, 0, 180deg));
+        }
+
+        .flipper__side--rear {
+            //opacity: 1;
+            @include vendor(transform, rotate3d(0, 1, 0, 0deg));
+        }
     }
 }
 
     .flipper__wrapper {
         position: relative;
-        transition: .3s;
-        transform-style: preserve-3d;
     }
 
         .flipper__side {
-            backface-visibility: hidden;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
+            @include backface-visibility(visible);
+            @include backface-visibility(hidden);
+            @include vendor(transition, .3s);
+            @include vendor(transform-style, preserve-3d);
         }
 
-        .flipper__side--front {
-            z-index: 2;
+        .csstransforms3d {
+            .flipper__side--front {
+                opacity: 1;
+                @include vendor(transform, rotate3d(0, 1, 0, 0deg));
+            }
+
+            .flipper__side--rear {
+                opacity: 0;
+                @include vendor(transform, rotate3d(0, 1, 0, -180deg));
+            }
         }
 
-        .flipper__side--rear {
-            transform: rotateY(180deg);
+        .no-csstransforms3d {
+            .flipper__side--rear {
+                display: none;
+            }
         }

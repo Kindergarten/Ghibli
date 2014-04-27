@@ -32,3 +32,13 @@ button,
         box-shadow: 0 .2em 0 0 darken($brand--button-secondary-color, 15%);
     }
 }
+
+.button--disabled {
+    background-color: $brand--button-disabled-color;
+    box-shadow: 0 .2em 0 0 darken($brand--button-disabled-color, 10%);
+    color: darken($brand--button-text-color--1, 30%);
+
+    &:active {
+        @extend .button--disabled;
+    }
+}

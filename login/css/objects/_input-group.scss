@@ -1,5 +1,5 @@
 /*------------------------------------*\
-    #INPUTS
+    #INPUT-GROUP
 \*------------------------------------*/
 
 /* Additions to inputs styling. */
@@ -7,23 +7,31 @@
 .input-group {
     @extend .cf;
     position: relative;
+    @include vendor(transition, all .2s);
 
     * { float: left; }
 
     /* TODO: Find a better way to position an icon. */
     .icon {
         position: absolute;
-        z-index: 2;
-        top: .5em;
-        left: .5em;
+        //z-index: 1;
+        top: $brand--controls-spacing * 0.9;
+        left: $brand--controls-spacing  * 0.9;
+        display: block;
         color: $brand--input-text-color--placeholder;
-        font-size: 1.5em;
         @include vendor(transition, all .2s);
+    }
+
+    .icon:before {
+        font-size: 1.5em;
+    }
+
+    &.input-group--success .icon {
+        color: $brand--input-text-color;
     }
 
     input {
         position: relative;
-        z-index: 1;
         padding-left: 3em;
     }
 
@@ -32,55 +40,71 @@
 }
 
 .input-group__message {
-    padding: $brand--controls-spacing / 3;
+    opacity: 0;
+    padding: $brand--controls-spacing / 4;
     position: absolute;
-    z-index: 0;
+    //z-index: 1;
     bottom: 0;
     width: 100%;
     color: $brand--msg-text-color;
     font-size: 80%;
     background: $brand--button-default-color;
     @include vendor(transition, all .2s);
+    @include vendor(transform, rotate3d(1, 0, 0, 90deg) scale3d(.95, .95, .95));
+
+    &:after {
+        content: "";
+        position: absolute;
+        //z-index: 2;
+        left: 50%;
+        bottom: 100%;
+        width: 0;
+        height: 0;
+        border: $brand--controls-spacing / 2 solid transparent;
+    }
 }
 
-.input-group__message--success {
+.input-group--success .input-group__message {
     background: $brand--success;
+
+    &:after {
+        border-bottom-color: $brand--success;
+    }
 }
 
-.input-group__message--error {
+.input-group--error .input-group__message {
     background: $brand--error;
+
+    &:after {
+        border-bottom-color: $brand--error;
+    }
 }
 
-.input-group__message--warning {
+.input-group--warning .input-group__message {
     background: $brand--warning;
+
+    &:after {
+        border-bottom-color: $brand--warning;
+    }
 }
 
 .input-group--warning,
-.input-group--error:hover,
+.input-group--error,
 .input-group--success {
+    padding-bottom: $brand--controls-spacing * 2;
 
-    .input-group__message--warning,
-    .input-group__message--error,
-    .input-group__message--success {
-        transition: all .5s;
-        transform: translateY(100%);
+    .input-group__message {
+        opacity: 1;
+        @include vendor(transform, rotate3d(1, 0, 0, 0deg) scale3d(1, 1, 1));
     }
 }
 
-.input-group--warning {
-    input:not([type=radio]):not([type=checkbox]) {
-        box-shadow: 0 0 0 .1em $brand--warning inset;
+.input-group--validation-off {
+    padding-bottom: 0;
+
+    .input-group__message {
+        opacity: 0;
+        @include vendor(transform, rotate3d(1, 0, 0, 90deg) scale3d(.95, .95, .95));
     }
 }
 
-.input-group--error:hover {
-    input:not([type=radio]):not([type=checkbox]) {
-        box-shadow: 0 0 0 .1em $brand--error inset;
-    }
-}
-
-.input-group--success {
-    input:not([type=radio]):not([type=checkbox]) {
-        box-shadow: 0 0 0 .1em $brand--success inset;
-    }
-}
