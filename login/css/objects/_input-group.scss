@@ -36,6 +36,10 @@
 
     &.input-group--icon input {
         padding-left: 3em;
+
+        .unsupported-ie & {
+            padding-left: $brand--controls-spacing;
+        }
     }
 
     input.valid + .icon,
@@ -47,6 +51,7 @@
     padding: $brand--controls-spacing / 4;
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
     color: $brand--msg-text-color;
     font-size: 80%;

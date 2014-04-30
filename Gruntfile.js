@@ -29,7 +29,8 @@ module.exports = function (grunt) {
                     "./login/js/brandview/controls/button.js",
                     "./login/js/brandview/base.js",
                     "./login/js/brandview/services.js",
-                    "./login/js/brandview/page.js"
+                    "./login/js/brandview/page.js",
+                    "./login/js/brandview/initialise.js"
                 ],
                 dest: "./login/js/bundle.js"
             },

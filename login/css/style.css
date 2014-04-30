@@ -839,6 +839,8 @@ button, .button {
     position: relative; }
   .input-group.input-group--icon input {
     padding-left: 3em; }
+    .unsupported-ie .input-group.input-group--icon input {
+      padding-left: 1em; }
   .input-group input.valid + .icon, .input-group input:focus + .icon {
     color: #afc8e6; }
 
@@ -847,6 +849,7 @@ button, .button {
   padding: 0.25em;
   position: absolute;
   bottom: 0;
+  left: 0;
   width: 100%;
   color: #fff;
   font-size: 80%;
