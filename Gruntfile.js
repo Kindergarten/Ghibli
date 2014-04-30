@@ -16,9 +16,17 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         concat: {
+            shim: {
+                src: [
+                    "./login/js/brandview/polyfills/classlist.js",
+                    "./login/js/brandview/polyfills/addeventlistener.js"
+                ],
+                dest: "./login/js/shim.js"
+            },
             js: {
                 src: [
                     "./login/js/brandview/controls/input-group.js",
+                    "./login/js/brandview/controls/button.js",
                     "./login/js/brandview/base.js",
                     "./login/js/brandview/services.js",
                     "./login/js/brandview/page.js"
@@ -44,7 +52,7 @@ module.exports = function (grunt) {
         cssmin: {
             dist: {
                 src: "./login/css/style.css",
-                dest: "./login/css/nasty.css"
+                dest: "./login/css/style.min.css"
             }
         },
 
@@ -59,6 +67,23 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     "./login/css/style.css": "./login/css/style.scss"
+                }
+            }
+        },
+
+
+        /**
+         * `uglify` - "grunt-contrib-uglify"
+         *
+         * Minifies JS files.
+         */
+
+        uglify: {
+            dist: {
+                files: {
+                    "./login/js/bundle.min.js": ["./login/js/bundle.js"],
+                    "./login/js/shim.min.js": ["./login/js/shim.js"],
+                    "./login/js/modernizr.js": ["./login/js/libs/modernizr.js"]
                 }
             }
         },
@@ -97,5 +122,5 @@ module.exports = function (grunt) {
      * concat etc.
      */
 
-    grunt.registerTask("build", ["sass", "cssmin", "concat:js", "concat:modernizr"]);
+    grunt.registerTask("build", ["sass", "cssmin", "concat:js", "concat:modernizr", "concat:shim", "uglify"]);
 };

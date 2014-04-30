@@ -13,10 +13,9 @@
 
             className = item ? "input-" + key : "no-input-" + key;
 
-            html.classList.add(className);
+            html.className = html.className + " " + className;
         }
 
     }
-
 
 })(Modernizr);

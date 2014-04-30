@@ -65,3 +65,9 @@ input + label {
 .input-placeholder .visible {
     display: inline-block !important;
 }
+
+.lt-ie9 {
+    input[type=password] {
+        font-family: sans-serif;
+    }
+}

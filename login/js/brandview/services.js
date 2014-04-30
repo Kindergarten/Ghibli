@@ -8,6 +8,7 @@
      * @typedef {string} Method
      * @private
      */
+
     _methods = {
         "POST": "POST",
         "GET": "GET",
@@ -41,7 +42,7 @@
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         request.onreadystatechange = function () {
-            if (request.readyState === 4) {
+            if (request.readyState === XMLHttpRequest.DONE) {
                 if (request.status === 200) {
                     if (settings.successCallback) {
                         settings.successCallback.call(this, JSON.parse(request.responseText));

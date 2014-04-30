@@ -2,43 +2,12 @@
     #BUTTONS
 \*------------------------------------*/
 
-button,
-.button {
-    background-color: $brand--button-default-color;
-    box-shadow: 0 .4em 0 0 darken($brand--button-default-color, 10%);
+@include buttonSkin(false, $brand--button-default-color);
 
-    &:active {
-        background-color: darken($brand--button-default-color, 5%);
-        box-shadow: 0 .2em 0 0 darken($brand--button-default-color, 15%);
-    }
-}
+@include buttonSkin(primary, $brand--button-primary-color);
 
-.button--primary {
-    background-color: $brand--button-primary-color;
-    box-shadow: 0 .4em 0 0 darken($brand--button-primary-color, 10%);
+@include buttonSkin(secondary, $brand--button-secondary-color);
 
-    &:active {
-        background-color: darken($brand--button-primary-color, 5%);
-        box-shadow: 0 .2em 0 0 darken($brand--button-primary-color, 15%);
-    }
-}
+@include buttonSkin(disabled, $brand--button-disabled-color, darken($brand--button-text-color--1, 30%), .2, true);
 
-.button--secondary {
-    background-color: $brand--button-secondary-color;
-    box-shadow: 0 .4em 0 0 darken($brand--button-secondary-color, 10%);
-
-    &:active {
-        background-color: darken($brand--button-secondary-color, 5%);
-        box-shadow: 0 .2em 0 0 darken($brand--button-secondary-color, 15%);
-    }
-}
-
-.button--disabled {
-    background-color: $brand--button-disabled-color;
-    box-shadow: 0 .2em 0 0 darken($brand--button-disabled-color, 10%);
-    color: darken($brand--button-text-color--1, 30%);
-
-    &:active {
-        @extend .button--disabled;
-    }
-}
+@include buttonSkin(active, $brand--button-disabled-color, darken($brand--button-text-color--1, 30%), .2, true);

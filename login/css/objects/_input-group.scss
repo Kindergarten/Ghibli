@@ -7,6 +7,7 @@
 .input-group {
     @extend .cf;
     position: relative;
+    padding-bottom: 0;
     @include vendor(transition, all .2s);
 
     * { float: left; }
@@ -14,7 +15,6 @@
     /* TODO: Find a better way to position an icon. */
     .icon {
         position: absolute;
-        //z-index: 1;
         top: $brand--controls-spacing * 0.9;
         left: $brand--controls-spacing  * 0.9;
         display: block;
@@ -32,6 +32,9 @@
 
     input {
         position: relative;
+    }
+
+    &.input-group--icon input {
         padding-left: 3em;
     }
 
@@ -43,7 +46,6 @@
     opacity: 0;
     padding: $brand--controls-spacing / 4;
     position: absolute;
-    //z-index: 1;
     bottom: 0;
     width: 100%;
     color: $brand--msg-text-color;
@@ -108,3 +110,27 @@
     }
 }
 
+.lt-ie9 {
+    .input-group {
+
+        .icon {
+            z-index: 3;
+        }
+
+        textarea,
+        select,
+        input {
+            position: relative;
+            z-index: 2;
+        }
+    }
+
+
+    .input-group__message {
+        z-index: 1;
+
+        &:after {
+            z-index: 1;
+        }
+    }
+}

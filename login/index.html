@@ -6,9 +6,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="js/libs/modernizr.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="js/modernizr.js"></script>
 </head>
 <body>
     <section id="app" class="login-ctrl flipper">
@@ -22,18 +23,18 @@
             <div class="form flipper__side flipper__side--front">
                 <div class="form__row">
                     <label for="login--username">Enter your username or e-mail</label>
-                    <div id="login--username-ctrl" class="input-group">
+                    <div id="login--username-ctrl" class="input-group input-group--icon">
                         <input id="login--username" type="email" class="one-whole" placeholder="Username or e-mail..." tabindex="1" maxlength="128" />
-                        <i class="icon icon--user2"></i>
+                        <i class="icon icon--user"></i>
                         <div class="input-group__message"></div>
                     </div>
                 </div>
 
                 <div class="form__row">
                     <label for="login--password">Enter your password</label>
-                    <div id="login--password-ctrl" class="input-group">
+                    <div id="login--password-ctrl" class="input-group input-group--icon">
                         <input id="login--password" type="password" class="one-whole" placeholder="Password..." tabindex="2" />
-                        <i class="icon icon--lock"></i>
+                        <i class="icon icon--locker"></i>
                         <div class="input-group__message"></div>
                     </div>
                 </div>
@@ -63,7 +64,7 @@
                 </div>
 
                 <div class="form__row">
-                    <div id="password--email-ctrl" class="input-group">
+                    <div id="password--email-ctrl" class="input-group input-group--icon">
                         <input id="password--email" class="one-whole" type="email" placeholder="Enter your e-mail address..." tabindex="6" maxlength="128" />
                         <i class="icon icon--mail"></i>
                         <div class="input-group__message"></div>
@@ -72,7 +73,7 @@
 
                 <div class="form__row form__row--spaced cf">
                     <div class="two-thirds float--left button-group">
-                        <button id="password--send" class="button button--secondary button--disabled one-whole" tabindex="7">Send Password</button>
+                        <button id="password--send" class="button button--secondary button--disabled one-whole" data-loading-text="Loading..." tabindex="7">Send Password</button>
                     </div>
 
                     <div class="one-third float--left button-group">
@@ -93,28 +94,40 @@
         <div class="form">
             <div class="form__row">
                 <label for="support--name">Name</label>
-                <input id="support--name" class="one-whole" maxlength="256" placeholder="Enter your name..." />
+                <div id="support--name-ctrl" class="input-group">
+                    <input id="support--name" class="one-whole" maxlength="256" placeholder="Enter your name..." />
+                    <div class="input-group__message"></div>
+                </div>
             </div>
             <div class="form__row">
                 <label for="support--email">E-mail</label>
-                <input id="support--email" class="one-whole" type="email" maxlength="128" placeholder="Enter your e-mail address..." />
+                <div id="support--email-ctrl" class="input-group">
+                    <input id="support--email" class="one-whole" type="email" maxlength="128" placeholder="Enter your e-mail address..." />
+                    <div class="input-group__message"></div>
+                </div>
             </div>
             <div class="form__row">
                 <label for="support--type">How can we help?</label>
-                <select id="support--type" class="one-whole">
-                    <option value="0" disabled>Please select...</option>
-                    <option value="1">I'm interested in using Brand View, but don't have an account.</option>
-                    <option value="2">I'm having trouble logging in.</option>
-                    <option>I haven't received my "Forgotten Password" email.</option>
-                </select>
+                <div id="support--type-ctrl" class="input-group">
+                    <select id="support--type" class="one-whole">
+                        <option value="" disabled selected>Please select...</option>
+                        <option value="1">I'm interested in using Brand View, but don't have an account.</option>
+                        <option value="2">I'm having trouble logging in.</option>
+                        <option>I haven't received my "Forgotten Password" email.</option>
+                    </select>
+                    <div class="input-group__message"></div>
+                </div>
             </div>
             <div class="form__row">
-                <label for="support-details">Further details</label>
-                <textarea id="support-details" class="one-whole" maxlength="500" rows="4" placeholder="Please enter any supporting information to help us quickly identify the issue."></textarea>
+                <label for="support--details">Further details</label>
+                <div id="support--details-ctrl" class="input-group">
+                    <textarea id="support--details" class="one-whole" maxlength="500" rows="4" placeholder="Please enter any supporting information to help us quickly identify the issue."></textarea>
+                    <div class="input-group__message"></div>
+                </div>
             </div>
             <div class="form__row form__row--spaced">
                 <div class="two-thirds float--left button-group">
-                    <button class="button button--secondary one-whole">Send</button>
+                    <button id="support--send" class="button button--secondary button--disabled one-whole">Send</button>
                 </div>
                 <div class="one-third float--left button-group">
                     <button id="support--close" class="button one-whole">Cancel</button>
@@ -133,7 +146,10 @@
     </footer>
 
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
-    <script src="js/bundle.js"></script>
+    <!--[if lte IE 9]>
+    <script src="js/shim.min.js"></script>
+    <![endif]-->
+    <script src="js/bundle.min.js"></script>
     <script>
         (function(base) {
             var page = base.extend(base, "Page");

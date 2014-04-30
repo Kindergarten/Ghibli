@@ -1,10 +1,11 @@
-(function(window) {
+(function(undefined) {
     "use strict";
 
     var ctrl,
         _applyValidationSettings,
         _classes,
         _clearValidationClasses,
+        _findMessage,
         _initialise,
         _initialiseEvents,
         _onValidation,
@@ -29,8 +30,11 @@
     ctrl = window.InputGroup = function(element, options) {
         this.config = {
             container: element,
-            element: element.getElementsByTagName("input")[0],
-            message: element.getElementsByClassName("input-group__message")[0],
+            element:
+                element.getElementsByTagName("input")[0] ||
+                element.getElementsByTagName("select")[0] ||
+                element.getElementsByTagName("textarea")[0],
+            message: _findMessage.call(this, element),
             options: options
         };
 
@@ -54,7 +58,8 @@
             NO_MESSAGE: "input-group--validation-off",
             SUCCESS: "input-group--success",
             WARNING: "input-group--warning",
-            ERROR: "input-group--error"
+            ERROR: "input-group--error",
+            MESSAGE: "input-group__message"
         },
         element: {
             SUCCESS: "input-group__input--valid",
@@ -109,7 +114,12 @@
         }
 
         // Add class to the container to indicate whether to show validation message or not.
-        this.config.container.classList.toggle(_classes.container.NO_MESSAGE, !messageText);
+        if (messageText) {
+            this.config.container.classList.remove(_classes.container.NO_MESSAGE);
+        }
+        else {
+            this.config.container.classList.add(_classes.container.NO_MESSAGE);
+        }
     };
 
     /**
@@ -189,6 +199,30 @@
                 })(this);
             }
         }
+    };
+
+
+    _findMessage = function (target) {
+        var elements,
+            element,
+            cla;
+
+        if (document.getElementsByClassName) {
+            element = target.getElementsByClassName(_classes.container.MESSAGE)[0];
+        }
+        else {
+            elements = target.getElementsByTagName("*");
+
+            for (var i = 0, l = elements.length; i < l; i++) {
+                element = elements[i];
+
+                if (element.classList.contains(_classes.container.MESSAGE)) {
+                    break;
+                }
+            }
+        }
+
+        return element;
     };
 
 
@@ -338,7 +372,9 @@
 
     ctrl.prototype.validate = function (preventMessages) {
         var validate = _validate.call(this),
-            messages, containerClass, elementClass, messageText;
+            messages, containerClass, elementClass, messageText, valid;
+
+        valid = validate === _validType.VALID;
 
         // If `preventMessages` is set to `true` then all the logic for displaying messages is ignored.
         if (!preventMessages) {
@@ -368,20 +404,24 @@
                 messageText = messages.valid;
             }
 
+
             _clearValidationClasses.call(this);
 
-            _applyValidationSettings.call(this, containerClass, elementClass, messageText);
+            if (!valid) {
+                _applyValidationSettings.call(this, containerClass, elementClass, messageText);
+            }
         }
 
-        return validate === _validType.VALID;
+        return valid;
     };
 
 
     /********************* Events ***********************/
+
 
     _onValidation = function () {
         if (!this.config.preventAutoValidation) {
             this.validate();
         }
     }
-})(window);
+})();

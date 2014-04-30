@@ -69,3 +69,54 @@
        -moz-backface-visibility: $value;
             backface-visibility: $value;
 }
+
+
+/**
+ * Create new button style:
+ *
+ * `@include buttonSkin (primary, #333);
+ */
+
+@mixin buttonSkin ($name,
+                   $color,
+                   $textColor: $brand--button-text-color--1,
+                   $shadowSize: .4,
+                   $sameActiveState: false) {
+
+    @if $name == false {
+        $buttonName: button;
+    }
+    @else {
+        $buttonName: button--#{$name};
+    }
+
+    .#{$buttonName} {
+        background-color: $color;
+        box-shadow: 0 #{$shadowSize}em 0 0 darken($color, 10%);
+        color: $textColor;
+
+        .no-boxshadow & {
+            border-bottom-color: darken($color, 10%);
+        }
+
+        &:active {
+            @if $sameActiveState == true {
+                background-color: $color;
+                box-shadow: 0 #{$shadowSize}em 0 0 darken($color, 10%);
+            }
+            @else {
+                background-color: darken($color, 5%);
+                box-shadow: 0 #{$shadowSize / 2}em 0 0 darken($color, 15%);
+            }
+        }
+
+        .no-boxshadow &:active {
+            @if $sameActiveState == true {
+                border-bottom-color: darken($color, 10%);
+            }
+            @else {
+                border-bottom-color: darken($color, 15%);
+            }
+        }
+    }
+}

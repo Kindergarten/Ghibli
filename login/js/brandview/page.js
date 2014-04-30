@@ -1,14 +1,39 @@
 (function (base, undefined) {
     var elements,
+        keys,
         page,
         services,
-        _classes, _validation;
+        
+        
+        // Private variables.
 
-    page = base.extend(base, "Page");
+        _button,
+        _classes,
+        _inputGroup,
+        
+        
+        // Events variables.
+        
+        _onLoginAttempt,
+        _onValidateLoginDetails,
+        _onCancelPasswordRequest,
+        _onEmailValidation,
+        _onRequestPassword,
+        _onSupportRequest,
+        _onSupportClose,
+        _onSupportValidation,
+        _onSupportEmailValidation;
 
-    services = base.extend(base, "Services");
+    
+    // Setup namespaces.
+    
+    keys        = base.extend(base, "Keys");
+    services    = base.extend(base, "Services");
+    page        = base.extend(base, "Page");
+    elements    = base.extend(page, "Elements");
 
-    elements = base.extend(page, "Elements");
+
+    // Caching elements.
 
     elements.app                = document.getElementById("app");
     elements.loginUsername      = document.getElementById("login--username");
@@ -24,18 +49,53 @@
     elements.passwordCancel     = document.getElementById("password--cancel");
     elements.support            = document.getElementById("support");
     elements.supportTrigger     = document.getElementById("support--trigger");
+    elements.supportSend        = document.getElementById("support--send");
     elements.supportClose       = document.getElementById("support--close");
     elements.supportName        = document.getElementById("support--name");
+    elements.supportNameCtrl    = document.getElementById("support--name-ctrl");
     elements.supportEmail       = document.getElementById("support--email");
-    elements.supportMode        = document.getElementById("support--mode");
+    elements.supportEmailCtrl   = document.getElementById("support--email-ctrl");
+    elements.supportType        = document.getElementById("support--type");
+    elements.supportTypeCtrl    = document.getElementById("support--type-ctrl");
     elements.supportDetails     = document.getElementById("support--details");
+    elements.supportDetailsCtrl = document.getElementById("support--details-ctrl");
 
 
-    _validation = {
-        username: null,
-        password: null,
-        email: null
+    // Placeholders for `InputGroup` controls.
+
+    _inputGroup = {
+        login: {
+            username: null,
+            password: null
+        },
+        forgotPassword: {
+            email: null
+        },
+        support: {
+            name: null,
+            email: null,
+            type: null,
+            details: null
+        }
     };
+
+
+    // Placeholders for `Button` controls.
+
+    _button = {
+        login: {
+            submit: null
+        },
+        forgotPassword: {
+            submit: null
+        },
+        support: {
+            submit: null
+        }
+    };
+
+
+    // Common CSS classes.
 
     _classes = {
         flipperActive: "flipper--active",
@@ -65,8 +125,10 @@
         // Focus username on page load.
         elements.loginUsername.focus();
 
-        // Setup username validation.
-        _validation.username = new InputGroup(elements.loginUsernameCtrl, {
+
+        // "Login" View validation.
+
+        _inputGroup.login.username = new InputGroup(elements.loginUsernameCtrl, {
             events: "change",
             messages: {
                 empty: "Oi, get back here! We need you username!",
@@ -77,16 +139,26 @@
             }
         });
 
-        // Setup password validation.
-        _validation.password = new InputGroup(elements.loginPasswordCtrl, {
+        _inputGroup.login.password = new InputGroup(elements.loginPasswordCtrl, {
             events: "change",
             messages: {
                 empty: "You kind of need a password to log in... Duh!"
             }
         });
 
-        // Setup e-mail validation.
-        _validation.email = new InputGroup(elements.passwordEmailCtrl, {
+
+        // "Login" View buttons.
+
+        _button.login.submit = new Button(elements.loginButton, {
+            busy: {
+                text: "Logging in, please wait..."
+            }
+        });
+
+
+        // "Forgot Password" View validation.
+
+        _inputGroup.forgotPassword.email = new InputGroup(elements.passwordEmailCtrl, {
             events: "change",
             messages: {
                 empty: "Put your e-mail here, silly!",
@@ -98,36 +170,94 @@
         });
 
 
-        // Events related to password request.
+        // "Forgot Password" View buttons.
 
-        elements.passwordEmail.addEventListener("keyup", page.validatePasswordRequest, false);
+        _button.forgotPassword.submit = new Button(elements.passwordSend, {
+            busy: {
+                text: "Please wait..."
+            }
+        });
 
-        elements.loginSendPassword.addEventListener("click", page.onRequestPassword, false);
 
-        elements.passwordCancel.addEventListener("click", page.onCancelPasswordRequest, false);
+        // "Support" Panel Validation.
 
-        elements.passwordSend.addEventListener("click", page.requestNewPassword, false);
+        _inputGroup.support.name = new InputGroup(elements.supportNameCtrl, {
+            events: "change",
+            messages: {
+                empty: "Please tell us your name."
+            }
+        });
+
+        _inputGroup.support.email = new InputGroup(elements.supportEmailCtrl, {
+            events: "change",
+            messages: {
+                empty: "Put your e-mail here, silly!",
+                invalid: "That doesn't look like a valid e-mail address."
+            },
+            validationMethod: function () {
+                return this.value.match(/^\S+@\S+$/g);
+            }
+        });
+
+        _inputGroup.support.type = new InputGroup(elements.supportTypeCtrl, {
+            events: "change",
+            messages: {
+                empty: "Please let us know how we can help."
+            }
+        });
+
+        _inputGroup.support.details = new InputGroup(elements.supportDetailsCtrl, {
+            events: "change",
+            messages: {
+                empty: "Please let us know how we can help."
+            }
+        });
+
+
+        // "Support" Panel buttons.
+
+        _button.support.submit = new Button(elements.supportSend, {
+            busy: {
+                text: "Sending, please wait..."
+            }
+        });
+
+
+        // Document-level events.
+
+        document.addEventListener("keyup", page.onSupportClose, false);
 
 
         // Events related to logging in.
 
-        elements.loginUsername.addEventListener("change", page.validateLoginDetails, false);
+        elements.loginUsername  .addEventListener("change", _onValidateLoginDetails, false);
+        elements.loginPassword  .addEventListener("change", _onValidateLoginDetails, false);
+        elements.loginPassword  .addEventListener("keyup", _onValidateLoginDetails, false);
+        elements.loginUsername  .addEventListener("keyup", _onValidateLoginDetails, false);
+        elements.loginUsername  .addEventListener("keyup", _onLoginAttempt, false);
+        elements.loginPassword  .addEventListener("keyup", _onLoginAttempt, false);
+        elements.loginButton    .addEventListener("click", page.attemptLoggingIn, false);
 
-        elements.loginPassword.addEventListener("change", page.validateLoginDetails, false);
 
-        elements.loginPassword.addEventListener("keyup", page.validateLoginDetails, false);
+        // Events related to password request.
 
-        elements.loginUsername.addEventListener("keyup", page.onLoginAttempt, false);
+        elements.passwordEmail      .addEventListener("keyup", _onEmailValidation, false);
+        elements.loginSendPassword  .addEventListener("click", _onRequestPassword, false);
+        elements.passwordCancel     .addEventListener("click", _onCancelPasswordRequest, false);
+        elements.passwordSend       .addEventListener("click", page.requestNewPassword, false);
 
-        elements.loginPassword.addEventListener("keyup", page.onLoginAttempt, false);
 
-        elements.loginButton.addEventListener("click", page.attemptLoggingIn, false);
+        // Events related to support panel.
 
-        // Events related to both views.
-
-        elements.supportTrigger.addEventListener("click", page.onSupportRequest, false);
-
-        elements.supportClose.addEventListener("click", page.onSupportClose, false);
+        elements.supportTrigger .addEventListener("click", _onSupportRequest, false);
+        elements.supportClose   .addEventListener("click", _onSupportClose, false);
+        elements.supportName    .addEventListener("keyup", _onSupportValidation, false);
+        elements.supportEmail   .addEventListener("keyup", _onSupportValidation, false);
+        elements.supportEmail   .addEventListener("keyup", _onSupportEmailValidation, false);
+        elements.supportType    .addEventListener("change", _onSupportValidation, false);
+        elements.supportDetails .addEventListener("blur", _onSupportValidation, false);
+        elements.supportDetails .addEventListener("keyup", _onSupportValidation, false);
+        elements.supportSend    .addEventListener("click", page.sendSupportRequest, false);
     };
 
 
@@ -144,17 +274,28 @@
         // Getting login details from the page.
         loginDetails = page.getLoginDetails(true);
 
-        if (loginDetails.valid) {
+        if (loginDetails.valid && !_button.login.submit.isBusy) {
 
-            // Call login method.
-            services.post("/Login", {
-                username: loginDetails.username,
-                password: loginDetails.password
-            }, function (response) {
-                alert("Success");
-            }, function () {
-                alert("Fail");
-            });
+            _button.login.submit.setBusy(true);
+
+            window.setTimeout(function () {
+                _button.login.submit.setBusy(false);
+
+                _inputGroup.login.username.setErrorState("Invalid username or password, please try again.");
+
+                _inputGroup.login.username.config.element.focus();
+
+            }, 3000);
+
+//            // Call login method.
+//            services.post("/Login", {
+//                username: loginDetails.username,
+//                password: loginDetails.password
+//            }, function (response) {
+//                alert("Success");
+//            }, function () {
+//                alert("Fail");
+//            });
         }
     };
 
@@ -169,7 +310,7 @@
     page.getLoginDetails = function (validate) {
         var valid;
 
-        valid = _validation.username.validate(!validate) & _validation.password.validate(!validate);
+        valid = page.validateLoginDetails(!!validate);
 
         return {
             valid: valid,
@@ -181,14 +322,19 @@
 
     /**
      * Show/hide login button if the fields are valid/invalid.
+     *
+     * @param {boolean=} validate - If `true` validation method will be triggered.
+     * @returns {boolean}
      */
 
-    page.validateLoginDetails = function () {
+    page.validateLoginDetails = function (validate) {
         var valid;
 
-        valid = _validation.username.validate(true) && _validation.password.validate(true);
+        valid =
+            _inputGroup.login.username.validate(!validate) &
+            _inputGroup.login.password.validate(!validate);
 
-        elements.loginButton.classList.toggle(_classes.disabledButton, !valid);
+        return !!valid;
     };
 
 
@@ -202,17 +348,30 @@
     page.requestNewPassword = function () {
         var email;
 
-        email = page.getEmail(true);
+        email = page.getNewPasswordDetails(true);
 
-        if (email.valid) {
+        if (email.valid && !_button.forgotPassword.isBusy) {
+            _button.forgotPassword.submit.setBusy(true);
 
-            services.post("/RequestPassword", {
-                email: email.email
-            }, function (response) {
-                alert("Success!");
-            }, function () {
-                alert("Fail!");
-            });
+            window.setTimeout(function () {
+                _button.forgotPassword.submit.setBusy(false);
+
+                if (Math.random()<.5) {
+                    _inputGroup.forgotPassword.email.setSuccessState("Thank you, please check your e-mail for further instructions.");
+                }
+                else {
+                    _inputGroup.forgotPassword.email.setErrorState("Sorry, something went wrong. Please contact our support team...");
+                }
+            }, 3000);
+
+            // Call web service.
+//            services.post("/RequestPassword", {
+//                email: email.email
+//            }, function (response) {
+//                alert("Success!");
+//            }, function () {
+//                alert("Fail!");
+//            });
         }
     };
 
@@ -224,10 +383,10 @@
      * @returns {{valid: boolean, email: string}}
      */
 
-    page.getEmail = function (validate) {
+    page.getNewPasswordDetails = function (validate) {
         var valid;
 
-        valid = _validation.email.validate(!validate);
+        valid = page.validatePasswordRequest(!!validate);
 
         return {
             valid: valid,
@@ -240,21 +399,115 @@
      * Validate e-mail on password request panel.
      */
 
-    page.validatePasswordRequest = function () {
+    page.validatePasswordRequest = function (validate) {
         var valid;
 
-        valid = _validation.email.validate(true);
+        valid = _inputGroup.forgotPassword.email.validate(!validate);
 
-        // If valid, use `validate()` to clear any error/warning messages.
-        if (valid) {
-            _validation.email.validate();
-        }
-
-        elements.passwordSend.classList.toggle(_classes.disabledButton, !valid);
+        return valid;
     };
 
 
-    /********************* Both Views Functionality ***********************/
+    /********************* "Support" Panel Functionality ***********************/
+
+
+    /**
+     * Get details from the support form.
+     *
+     * @param {boolean=} validate - Indicate whether to show validation messages or not.
+     * @returns {object}
+     */
+
+    page.getSupportDetails = function (validate) {
+        var valid;
+
+        valid = page.validateSupportPanel(!!validate);
+
+        return {
+            valid: valid,
+            name: elements.supportName.value,
+            email: elements.supportEmail.value,
+            type: elements.supportType.value,
+            details: elements.supportDetails.value
+        }
+    };
+
+
+    /**
+     * Send support request.
+     */
+
+    page.sendSupportRequest = function () {
+        var supportDetails;
+
+        supportDetails = page.getSupportDetails(true);
+
+        if (supportDetails.valid && !_button.support.submit.isBusy) {
+
+            _button.support.submit.setBusy(true);
+
+            window.setTimeout(function () {
+                _button.support.submit.setBusy(false);
+
+                if (Math.random()<.5) {
+                    _inputGroup.support.details.setSuccessState("Thank you, one of our team members will contact you shortly.");
+                }
+                else {
+                    _inputGroup.support.details.setErrorState("Sorry, something went wrong. Please contact our support team..");
+                }
+            }, 3000);
+
+            // Call support method.
+//            services.post("/Support", {
+//                name: supportDetails.name,
+//                email: supportDetails.email,
+//                type: supportDetails.type,
+//                details: supportDetails.details
+//            }, function (response) {
+//                alert("Success");
+//            }, function () {
+//                alert("Fail");
+//            });
+        }
+    };
+
+
+    /**
+     * Function used to show or hide support panel.
+     *
+     * @param {boolean} show - Indicate whether to show or hide the panel.
+     */
+
+    page.toggleSupportPanel = function (show) {
+        if (show) {
+            elements.support.classList.add(_classes.modalVisible);
+
+            //elements.supportName.focus();
+        }
+        else {
+            elements.support.classList.remove(_classes.modalVisible);
+        }
+    };
+
+
+    /**
+     * Validate entire support form.
+     *
+     * @param {boolean=} validate - Indicate whether to show validation messages.
+     * @returns {boolean}
+     */
+
+    page.validateSupportPanel = function (validate) {
+        var valid;
+
+        valid =
+            _inputGroup.support.name.validate(!validate) &
+            _inputGroup.support.email.validate(!validate) &
+            _inputGroup.support.type.validate(!validate) &
+            _inputGroup.support.details.validate(!validate);
+
+        return !!valid;
+    };
 
 
     /**
@@ -267,49 +520,70 @@
 
         // Focus different input depending on the view.
         if (show) {
-            elements.passwordEmail.focus();
+            elements.app.classList.add(_classes.flipperActive);
+
+            elements.passwordEmail.focus()
         }
         else {
+            elements.app.classList.remove(_classes.flipperActive);
+
             elements.loginUsername.focus();
         }
-
-        elements.app.classList.toggle(_classes.flipperActive, !!show);
     };
 
 
+    /********************* "Login" View Events ***********************/
+
+    
     /**
-     * Function used to show or hide support panel.
+     * Function executed when user tries to log in.
      *
-     * @param {boolean} show - Indicate whether to show or hide the panel.
+     * @param {object} e - Event.
+     * @private
      */
 
-    page.toggleSupportPanel = function (show) {
-        if (show) {
-
-        }
-
-        elements.support.classList.toggle(_classes.modalVisible, !!show);
-    };
-
-
-    /********************* Events ***********************/
-
-
-    page.onLoginAttempt = function (e) {
-        // On enter...
-        if (e.keyCode === 13) {
+    _onLoginAttempt = function (e) {
+        if (e.keyCode === keys.ENTER) {
             page.attemptLoggingIn();
         }
     };
 
 
     /**
+     * Function executed when user changes any of the login inputs.
+     *
+     * @param {object} e = Event
+     * @private
+     */
+
+    _onValidateLoginDetails = function (e) {
+        var valid;
+
+        valid = page.validateLoginDetails(false);
+
+        if (valid) {
+            elements.loginButton.classList.remove(_classes.disabledButton);
+
+            // Clear any outstanding error messages.
+            page.validateLoginDetails(true);
+        }
+        else {
+            elements.loginButton.classList.add(_classes.disabledButton);
+        }
+    };
+
+
+    /********************* "Forgot Password" View Events ***********************/
+
+
+    /**
      * Function called when user clicks on the "Cancel" button on the "Forgot Password" view.
      *
      * @param {object} e - Click event.
+     * @private
      */
 
-    page.onCancelPasswordRequest = function (e) {
+    _onCancelPasswordRequest = function (e) {
         e.preventDefault();
 
         page.showForgotPasswordPanel(false);
@@ -317,26 +591,63 @@
 
 
     /**
+     * Event handler for email input.
+     *
+     * @param {object} e - Keyup event.
+     * @private
+     */
+
+    _onEmailValidation = function (e) {
+        var valid;
+
+        if (e.keyCode === keys.ENTER) {
+            return page.requestNewPassword();
+        }
+
+        valid = page.validatePasswordRequest(false);
+
+        if (valid) {
+            elements.passwordSend.classList.remove(_classes.disabledButton);
+        }
+        else {
+            elements.passwordSend.classList.add(_classes.disabledButton);
+        }
+
+        // If valid clear any outstanding error messages.
+        if (valid) {
+            page.validatePasswordRequest(true);
+        }
+    };
+
+
+    /**
      * Function called when user clicks on the "Forgot Password" link on the "Login" view.
      *
      * @param {object} e - Click event.
+     * @private
      */
 
-    page.onRequestPassword = function (e) {
+    _onRequestPassword = function (e) {
         e.preventDefault();
 
         page.showForgotPasswordPanel(true);
     };
 
 
+    /********************* "Support" Panel Events ***********************/
+
+
     /**
      * Event handler for Support panel trigger.
      *
      * @param {object} e - Click event.
+     * @private
      */
 
-    page.onSupportRequest = function (e) {
+    _onSupportRequest = function (e) {
         e.preventDefault();
+
+        e.stopPropagation();
 
         page.toggleSupportPanel(true);
     };
@@ -346,11 +657,61 @@
      * Event handler for Support panel cancel button.
      *
      * @param {object} e - Click event.
+     * @private
      */
-    page.onSupportClose= function (e) {
+
+    _onSupportClose = function (e) {
         e.preventDefault();
 
-        page.toggleSupportPanel(false);
+        if (e.type === "click" || e.keyCode === keys.ESC) {
+            page.toggleSupportPanel(false);
+        }
+    };
+
+
+    /**
+     * Event handler for support form validation.
+     *
+     * @private
+     */
+
+    _onSupportValidation = function (e) {
+        var valid;
+
+        valid = page.validateSupportPanel(false);
+
+        if (e.keyCode === keys.ENTER && (!e.target || e.target.tagName !== "TEXTAREA")) {
+            return page.sendSupportRequest();
+        }
+
+        if (valid) {
+            elements.supportSend.classList.remove(_classes.disabledButton);
+        }
+        else {
+            elements.supportSend.classList.add(_classes.disabledButton);
+        }
+
+        // Clear any outstanding messages.
+        if (valid) {
+            page.validateSupportPanel(true);
+        }
+    };
+
+
+    /**
+     * Event handler for support email validation.
+     * 
+     * @private
+     */
+    
+    _onSupportEmailValidation = function () {
+        var valid;
+
+        valid = _inputGroup.support.email.validate(true);
+
+        if (valid) {
+            _inputGroup.support.email.clearState();
+        }
     };
 
 })(window.BV);

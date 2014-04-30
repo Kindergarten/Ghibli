@@ -10,7 +10,6 @@
     right: 0;
     z-index: 100;
     width: 100%;
-    //display: none;
     opacity: 0;
     padding: double($brand--controls-spacing);
     background: darken($brand--color--1, 2.5%);
@@ -18,7 +17,7 @@
     @include vendor(transform-origin, top center);
     @include vendor(transform, rotateX(65deg) scale(.5) translateY(-100%));
 
-    .no-csstransforms {
+    .no-csstransforms3d & {
         display: none;
     }
 }
@@ -28,7 +27,7 @@
     opacity: 1;
     @include vendor(transform, rotateX(0) scale(1) translateY(0%));
 
-    .no-csstransforms {
+    .no-csstransforms3d & {
         display: block;
     }
 }

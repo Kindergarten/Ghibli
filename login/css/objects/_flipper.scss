@@ -19,15 +19,17 @@
  */
 
 .flipper {
+    @include vendor(perspective, 1000);
+
     .csstransforms3d &.flipper--active {
         .flipper__side--front {
             opacity: 0;
-            @include vendor(transform, rotate3d(0, 1, 0, 180deg));
+            @include vendor(transform, rotateY(180deg));
         }
 
         .flipper__side--rear {
             opacity: 1;
-            @include vendor(transform, rotate3d(0, 1, 0, 0deg));
+            @include vendor(transform, rotateY(0deg));
         }
     }
 
@@ -44,12 +46,12 @@
     &:hover {
         .flipper__side--front {
             //opacity: 0;
-            @include vendor(transform, rotate3d(0, 1, 0, 180deg));
+            @include vendor(transform, rotateY(180deg));
         }
 
         .flipper__side--rear {
             //opacity: 1;
-            @include vendor(transform, rotate3d(0, 1, 0, 0deg));
+            @include vendor(transform, rotateY(0deg));
         }
     }
 }
@@ -72,12 +74,12 @@
         .csstransforms3d {
             .flipper__side--front {
                 opacity: 1;
-                @include vendor(transform, rotate3d(0, 1, 0, 0deg));
+                @include vendor(transform, rotateY(0deg));
             }
 
             .flipper__side--rear {
                 opacity: 0;
-                @include vendor(transform, rotate3d(0, 1, 0, -180deg));
+                @include vendor(transform, rotateY(-180deg));
             }
         }
 

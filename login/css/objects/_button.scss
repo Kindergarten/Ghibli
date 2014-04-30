@@ -10,16 +10,28 @@ button,
     padding-bottom: $brand--controls-spacing;
     padding-left: $brand--controls-spacing * 2;
     padding-right: $brand--controls-spacing * 2;
-    color: $brand--button-text-color--1;
     font-weight: 300;
     border: none;
     @include vendor(border-radius, $brand--round);
     @include vendor(transition, all 75ms);
 
     &:active,
+    &.button--active,
+    &.button--busy,
     &.button--disabled {
         top: .2em;
-        border-bottom-width: .2em;
+    }
+
+    .no-boxshadow & {
+        border-bottom-width: .4em;
+        border-bottom-style: solid;
+
+        &:active,
+        &.button--active,
+        &.button--busy,
+        &.button--disabled {
+            border-bottom-width: .2em;
+        }
     }
 
     & + .button {
